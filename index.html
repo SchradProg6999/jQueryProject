@@ -5,7 +5,6 @@
         <title>JQuery Project</title>
         <link rel="stylesheet" text="text/css" href="assets/css/index.css">
         <script src="https://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
-        <script type="text/javascript" src="assets/js/index.js"></script>
     </head>
 
     <body>
@@ -43,7 +42,13 @@
         </div>
         <hr>
         <div id="map-section-wrapper">
-            <section id="map-section"></section>
+            <div id="map-header">
+                <h1>Where Our Students Work</h1>
+                <p class="footnote">Click a marker to learn more about the jobs at that location</>
+            </div>
+            <section id="map-section">
+                <iframe id="map" src="http://ist.rit.edu/api/map" scrolling="no" style="width:80vw; height:60vh;"></iframe>
+            </section>
         </div>
         <hr>
         <div id="people-section-wrapper">
@@ -65,5 +70,7 @@
         <div id="footer-wrapper">
             <section id="footer"></section>
         </div>
+
+        <script type="text/javascript" src="assets/js/index.js"></script>
     </body>
 </html>

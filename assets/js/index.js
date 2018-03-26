@@ -1,4 +1,18 @@
 //api:  http://www.ist.rit.edu/api/
+
+function facMore(who) {
+    // get the data-id to get more information
+
+    var id = $(who).attr('data-id');
+
+    myXHR('get', {
+        'path': '/people/faculty/username=' + id
+    }).done(function(json) {
+        alert("Info for each faculty member  goes here (not really) yay!!!");
+    });
+
+} // end facMore
+
 $(document).ready(function() {
 
     // ABOUT PAGE
@@ -129,53 +143,42 @@ $(document).ready(function() {
     });
 
 
-    // DISPLAY THE MAP OF WHERE STUDENTS WORK
-    getMap();
+
+    // DISPLAY COOP TABLE AND EMPLOYMENT TABLE UNDER MAP
+    myXHR('get', {
+        'path': '/employment/'
+    }).done(function(json) {
+        let x = '';
+        x += "<div class='coop_employment_table'>";
+        x += "<h3>" + json.coopTable.title + "</h3>";
+        x += "</div>";
+        $("#map-section").append(x);
+
+        x = '';
+        x += "<div class='coop_employment_table'>";
+        x += "<h3>" + json.employmentTable.title + "</h3>";
+        x += "</div>";
+        $("#map-section").append(x);
+    });
+
+
 
     // display the faculty
     myXHR('get', {
         'path': '/people/faculty'
     }).done(function(json) {
-        //console.log(json);
         let x = '';
 
-        $.each(json.faculty, function() {
-            x = '<div onclick = "facMore(this)" ';
+        $.each(json.faculty, function(i, item) {
+            x = "<div onclick = 'facMore(this)';";
             x += 'data-id = "' + $(this)[0].username + '" ';
             x += 'style = "cursor:pointer;"><h3>' + $(this)[0].name + '</h3>';
             x += '<p>' + $(this)[0].title + '</p>';
             x += '<img src = "' + $(this)[0].imagePath + '"/></div><hr/>';
-        });
 
-        $('#people-section').html(x);
+            $('#people-section').append(x);
+        });
     });
-
-
-
-
-    function facMore(who) {
-        // get the data-id to get more information
-
-        var id = $(who).attr('data-id');
-
-        myXHR('get', {
-            'path': '/people/faculty/username=' + id
-        }).done(function(json) {
-            console.log(json);
-        });
-
-    } // end facMore
-
-    function getMap(){
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', 'https://ist.rit.edu/api/map/', true);
-        xhr.send();
-
-        xhr.onreadystatechange = function(ele){
-            $("#map-section").append(ele);
-        }
-    }
-
 }); // end of document ready
 
 
