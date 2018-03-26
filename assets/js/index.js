@@ -1,7 +1,7 @@
 //api:  http://www.ist.rit.edu/api/
 $(document).ready(function() {
 
-    // start with the about page
+    // ABOUT PAGE
     myXHR('get', {
         'path': '/about/'
     }).done(function(json) {
@@ -13,7 +13,7 @@ $(document).ready(function() {
         $('#about-section').html(x);
     });
 
-    // display undergraduate programs
+    // DISPLAY UNDERGRADUATE PROGRAMS
     myXHR('get', {
         'path': '/degrees/undergraduate/'
     }).done(function(json) {
@@ -33,7 +33,7 @@ $(document).ready(function() {
 
 
 
-    // display graduate programs
+    // DISPLAY GRADUATE PROGRAMS
     myXHR('get', {
         'path': '/degrees/graduate/'
     }).done(function(json) {
@@ -58,7 +58,7 @@ $(document).ready(function() {
     });
 
 
-    // display minor programs
+    // DISPLAY MINOR PROGRAMS
     myXHR('get', {
         'path': '/minors/'
         //'path': '/course/courseID=CSEC-101' THIS CAN BE USED FOR A SPECIFIC COURSE
@@ -73,7 +73,7 @@ $(document).ready(function() {
 
 
 
-    // display employment information
+    // DISPLAY EMPLOYMENT INFORMATION
     myXHR('get', {
         'path': '/employment/'
     }).done(function(json) {
@@ -94,13 +94,43 @@ $(document).ready(function() {
         let count = 0;
         $.each(json.degreeStatistics, function(i, item){
             x += "<div class='deg-stat' id='deg-stat" + i + "'>";
-            x += "<p>" + json.degreeStatistics.statistics[].value + "</p>";
-            x += "<p>" + json.degreeStatistics.statistics[].description + "</p>";
+            x += "<p>" + json.degreeStatistics.statistics[count].value + "</p>";
+            x += "<p>" + json.degreeStatistics.statistics[count].description + "</p></div>";
             count ++;
+            $("#employment-section").append(x);
         });
+
+
+        x = '';
+        x += "<div class='employment-subheader-div'>";
+        x += "<h3 class='employment-subheader'>" + json.introduction.content[1].title + "</h3>";
+        x += "<p>" + json.introduction.content[1].description + "</p>";
+        $("#employment-section").append(x);
+
+        x = '';
+        x += "<div id='employers-list'>";
+        x += "<h3 class='employment-subheader'>" + json.employers.title + "</h3>";
+        for(var i = 0; i < json.employers.employerNames.length; i++){
+            x += "<h4>" + json.employers.employerNames[i] + "</h4>";
+        }
+        x += "</div>"
+        $("#employment-section").append(x);
+
+
+        x = '';
+        x += "<div id='careers-list'>";
+        x += "<h3 class='employment-subheader'>" + json.careers.title + "</h3>";
+        for(var i = 0; i < json.careers.careerNames.length; i++){
+            x += "<h4>" + json.careers.careerNames[i] + "</h4>";
+        }
+        x += "<div class = 'footnote'><p>*Employers/Careers are randomly pulled from our recent graduates</p></div>";
+        x += "</div>"
+        $("#employment-section").append(x);
     });
 
 
+    // DISPLAY THE MAP OF WHERE STUDENTS WORK
+    getMap();
 
     // display the faculty
     myXHR('get', {
@@ -135,6 +165,16 @@ $(document).ready(function() {
         });
 
     } // end facMore
+
+    function getMap(){
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://ist.rit.edu/api/map/', true);
+        xhr.send();
+
+        xhr.onreadystatechange = function(ele){
+            $("#map-section").append(ele);
+        }
+    }
 
 }); // end of document ready
 
