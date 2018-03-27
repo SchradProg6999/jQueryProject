@@ -1,6 +1,6 @@
 //api:  http://www.ist.rit.edu/api/
 
-function facMore(who) {
+function showFacInfo(who) {
     // get the data-id to get more information
 
     var id = $(who).attr('data-id');
@@ -20,7 +20,77 @@ function facMore(who) {
         $(popUp).dialog();
     });
 
-} // end facMore
+} // end showFacInfo
+
+
+
+function showStaffInfo(who) {
+    // get the data-id to get more information
+
+    var id = $(who).attr('data-id');
+    myXHR('get', {
+        'path': '/people/staff/username=' + id
+    }).done(function(json) {
+        console.log(json);
+        let popUp = '';
+        popUp += "<div class='people-popup-header'><p><span>" + json.name + ", </span>" + json.title + "</p>";
+        popUp += "<div class='people-popup-image'><img src='" + json.imagePath + "'/></div>";
+
+        if(json.office != null){
+            popUp += "<div class='people-popup-contact'><p>" + json.office + "</p>";
+        }
+        if(json.phone != null){
+            popUp += "<p>" + json.phone + "</p>";
+        }
+        popUp += "<p>" + json.email + "</p></div>";
+        $(popUp).dialog();
+    });
+
+} // end showStaffInfo
+
+
+
+function showFaculty(){
+    // display the faculty
+    myXHR('get', {
+        'path': '/people/faculty'
+    }).done(function(json) {
+        let x = '';
+        $("#people-section").html(x);
+        $.each(json.faculty, function() {
+            x = "<div onclick = 'showFacInfo(this)'; ";
+            x += 'data-id = "' + $(this)[0].username + '" ';
+            x += 'style = "cursor:pointer;"><h3>' + $(this)[0].name + '</h3>';
+            x += '<p>' + $(this)[0].title + '</p>';
+            x += '</div><hr/>';
+
+            $('#people-section').append(x);
+        });
+    });
+}
+
+
+
+function showStaff(){
+    //display the staff
+    myXHR('get', {
+        'path': '/people/staff'
+    }).done(function(json) {
+        let x = '';
+        $("#people-section").html(x);
+        $.each(json.staff, function() {
+            x = "<div onclick = 'showStaffInfo(this)'; ";
+            x += 'data-id = "' + $(this)[0].username + '" ';
+            x += 'style = "cursor:pointer;"><h3>' + $(this)[0].name + '</h3>';
+            x += '<p>' + $(this)[0].title + '</p>';
+            x += '</div><hr/>';
+
+            $('#people-section').append(x);
+        });
+    });
+}
+
+
 
 $(document).ready(function() {
 
@@ -171,16 +241,31 @@ $(document).ready(function() {
     });
 
 
+    // FACULTY AND STAFF HEADER
+    myXHR('get', {
+        'path': '/people/'
+    }).done(function(json) {
+        let x = '';
+        x += "<div id='people-header'><h1>" + json.title + "</h1>";
+        x += "<p>" + json.subTitle + "</p>";
+        x += "<div onclick='showFaculty()' class='people-choice'><h3>Faculty</h3></div>";
+        x += "<div onclick='showStaff()' class='people-choice'><h3>Staff</h3></div>";
+        x += "</div>";
 
-    // display the faculty
+        $('#people-section-header').append(x);
+    });
+
+
+
+    // DISPLAY THE FACULTY
     myXHR('get', {
         'path': '/people/faculty'
     }).done(function(json) {
         let x = '';
-        console.log(json);
+        //console.log(json);
 
         $.each(json.faculty, function() {
-            x = "<div onclick = 'facMore(this)'; ";
+            x = "<div onclick = 'showFacInfo(this)'; ";
             x += 'data-id = "' + $(this)[0].username + '" ';
             x += 'style = "cursor:pointer;"><h3>' + $(this)[0].name + '</h3>';
             x += '<p>' + $(this)[0].title + '</p>';
