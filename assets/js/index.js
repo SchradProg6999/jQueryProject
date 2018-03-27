@@ -4,11 +4,20 @@ function facMore(who) {
     // get the data-id to get more information
 
     var id = $(who).attr('data-id');
-
     myXHR('get', {
         'path': '/people/faculty/username=' + id
     }).done(function(json) {
-        alert("Info for each faculty member  goes here (not really) yay!!!");
+        console.log(json);
+        let popUp = '';
+        popUp += "<div class='people-popup-header'><p><span>" + json.name + ", </span>" + json.title + "</p>";
+        popUp += "<div class='people-popup-image'><img src='" + json.imagePath + "'/></div>";
+
+        if(json.office != null){
+            popUp += "<div class='people-popup-contact'><p>" + json.office + "</p>";
+        }
+        popUp += "<p>" + json.phone + "</p>";
+        popUp += "<p>" + json.email + "</p></div>";
+        $(popUp).dialog();
     });
 
 } // end facMore
@@ -168,13 +177,14 @@ $(document).ready(function() {
         'path': '/people/faculty'
     }).done(function(json) {
         let x = '';
+        console.log(json);
 
-        $.each(json.faculty, function(i, item) {
-            x = "<div onclick = 'facMore(this)';";
+        $.each(json.faculty, function() {
+            x = "<div onclick = 'facMore(this)'; ";
             x += 'data-id = "' + $(this)[0].username + '" ';
             x += 'style = "cursor:pointer;"><h3>' + $(this)[0].name + '</h3>';
             x += '<p>' + $(this)[0].title + '</p>';
-            x += '<img src = "' + $(this)[0].imagePath + '"/></div><hr/>';
+            x += '</div><hr/>';
 
             $('#people-section').append(x);
         });
