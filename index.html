@@ -5,10 +5,10 @@
         <title>JQuery Project</title>
         <link rel="stylesheet" text="text/css" href="assets/css/index.css">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     </head>
-
     <body>
         <h1>INFORMATION SCIENCES & TECHNOLOGIES @ RIT</h1>
         <div id="about-section-wrapper">
@@ -59,19 +59,40 @@
         </div>
         <hr>
         <div id="research-section-wrapper">
+            <div>
+                <h1>Faculty Research: Areas of Interest</h1>
+                <p class="footnote">Click the area you're interested in to explore our faculty publications</p>
+            </div>
             <section id="research-section"></section>
         </div>
         <hr>
-        <div id="resources-section-wrapper">
-            <section id="resources-section"></section>
+        <div id="research-faculty-section-wrapper">
+            <div>
+                <h1>Faculty Research: Lookup by Faculty</h1>
+                <p class = 'footnote'>Click the faculty member to explore their recent publications</p>
+            </div>
+            <section id='research-faculty-section'></section>
         </div>
         <hr>
-        <div id="news-section-wrapper">
-            <section id="news-section"></section>
+        <div id="resources-section-wrapper">
+            <section id="current-resources-section"></section>
+        </div>
+        <hr>
+        <div id="resources-section-wrapper">
+            <section id="prospective-resources-section"></section>
+        </div>
+        <hr>
+        <div id="resources-section-wrapper">
+            <section id="COP-resources-section"></section>
         </div>
         <hr>
         <div id="footer-wrapper">
-            <section id="footer"></section>
+            <section id="footer">
+                <div class="news-footer">
+                    <h1>News Archives</h1>
+                    <h3 onclick='showNews(this);' style='cursor:pointer'>All News</h3>
+                </div>
+            </section>
         </div>
 
         <script type="text/javascript" src="assets/js/index.js"></script>

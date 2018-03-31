@@ -1,13 +1,120 @@
 //api:  http://www.ist.rit.edu/api/
 
+function showNews(){
+
+    myXHR('get', {
+        'path': '/news'
+    }).done(function(json){
+        $(".ui-dialog-content").dialog('close');
+        let x = '';
+        x += "<div><h1>News and Events: Archive</h1>"
+        $.each(json.older, function(i, ele){
+            x += "<div><h1>" + ele.title + "</h1>";
+            x += "<p>" + ele.date + "</p>";
+            x += "<p>" + ele.description + "</p>";
+            x += "</div>";
+        });
+
+        x += "</div>";
+        $(x).dialog({
+            autoOpen: true,
+            show: {
+                effect: "fade",
+                duration: 300
+            },
+            hide: {
+                effect: "fade",
+                duration: 300
+            },
+            draggable: false,
+            resizeable: false
+        });
+    });
+}
+
+
+function showFacResearch(facultyResearch){
+
+    var facResearchID = $(facultyResearch).attr('username');
+    var uri = '/research/byFaculty/username=' + facResearchID;
+    var encodedURI = encodeURI(uri);
+    myXHR('get', {
+        'path':encodedURI
+    }).done(function(json) {
+        $(".ui-dialog-content").dialog('close');
+        console.log(json);
+
+        let popUp = '';
+        popUp += "<div><h1>" + json.facultyName + "</h1>";
+        popUp += "<div><ul>";
+
+        $.each(json.citations, function(i, ele){
+            popUp += "<li>" + ele +"</li>";
+        });
+
+        popUp += "</ul></div></div>";
+        $(popUp).dialog({
+            autoOpen: true,
+            show: {
+                effect: "fade",
+                duration: 300
+            },
+            hide: {
+                effect: "fade",
+                duration: 300
+            },
+            draggable: false,
+            resizeable: false
+        });
+    });
+}
+
+
+
+function showInterestResearch(researchTopic){
+    var researchID = $(researchTopic).attr('areaname');
+    var uri = '/research/byInterestArea/areaName=' + researchID;
+    var encodedURI = encodeURI(uri);
+    myXHR('get', {
+        'path': encodedURI
+    }).done(function(json) {
+        $(".ui-dialog-content").dialog('close');
+        let popUp = '';
+        popUp += "<div><div class='research-popup-header'><h1>Research By Domain Area: " + researchID + "</h1></div>";
+        popUp += "<div><ul>";
+
+        $.each(json.citations, function(i, ele){
+            popUp += "<li>" + ele + "</li>";
+        });
+
+        popUp += "</ul></div>";
+        popUp += "</div>";
+        $(popUp).dialog({
+            autoOpen: true,
+            show: {
+                effect: "fade",
+                duration: 300
+            },
+            hide: {
+                effect: "fade",
+                duration: 300
+            },
+            draggable: false,
+            resizeable: false
+        });
+    });
+}
+
+
+
 function showFacInfo(who) {
     // get the data-id to get more information
-
     var id = $(who).attr('data-id');
     myXHR('get', {
         'path': '/people/faculty/username=' + id
     }).done(function(json) {
         console.log(json);
+        $(".ui-dialog-content").dialog('close');
         let popUp = '';
         popUp += "<div class='people-popup-header'><p><span>" + json.name + ", </span>" + json.title + "</p>";
         popUp += "<div class='people-popup-image'><img src='" + json.imagePath + "'/></div>";
@@ -17,7 +124,20 @@ function showFacInfo(who) {
         }
         popUp += "<p>" + json.phone + "</p>";
         popUp += "<p>" + json.email + "</p></div>";
-        $(popUp).dialog();
+
+        $(popUp).dialog({
+            autoOpen: true,
+            show: {
+                effect: "fade",
+                duration: 300
+            },
+            hide: {
+                effect: "fade",
+                duration: 300
+            },
+            draggable: false,
+            resizeable: false
+        });
     });
 
 } // end showFacInfo
@@ -26,12 +146,12 @@ function showFacInfo(who) {
 
 function showStaffInfo(who) {
     // get the data-id to get more information
-
     var id = $(who).attr('data-id');
     myXHR('get', {
         'path': '/people/staff/username=' + id
     }).done(function(json) {
         console.log(json);
+        $(".ui-dialog-content").dialog('close');
         let popUp = '';
         popUp += "<div class='people-popup-header'><p><span>" + json.name + ", </span>" + json.title + "</p>";
         popUp += "<div class='people-popup-image'><img src='" + json.imagePath + "'/></div>";
@@ -43,7 +163,19 @@ function showStaffInfo(who) {
             popUp += "<p>" + json.phone + "</p>";
         }
         popUp += "<p>" + json.email + "</p></div>";
-        $(popUp).dialog();
+        $(popUp).dialog({
+            autoOpen: true,
+            show: {
+                effect: "fade",
+                duration: 300
+            },
+            hide: {
+                effect: "fade",
+                duration: 300
+            },
+            draggable: false,
+            resizeable: false
+        });
     });
 
 } // end showStaffInfo
@@ -58,7 +190,7 @@ function showFaculty(){
         let x = '';
         $("#people-section").html(x);
         $.each(json.faculty, function() {
-            x = "<div onclick = 'showFacInfo(this)'; ";
+            x = "<div class='people-card-div' onclick = 'showFacInfo(this)'; ";
             x += 'data-id = "' + $(this)[0].username + '" ';
             x += 'style = "cursor:pointer;"><h3>' + $(this)[0].name + '</h3>';
             x += '<p>' + $(this)[0].title + '</p>';
@@ -79,7 +211,7 @@ function showStaff(){
         let x = '';
         $("#people-section").html(x);
         $.each(json.staff, function() {
-            x = "<div onclick = 'showStaffInfo(this)'; ";
+            x = "<div class='people-card-div' onclick = 'showStaffInfo(this)'; ";
             x += 'data-id = "' + $(this)[0].username + '" ';
             x += 'style = "cursor:pointer;"><h3>' + $(this)[0].name + '</h3>';
             x += '<p>' + $(this)[0].title + '</p>';
@@ -265,7 +397,7 @@ $(document).ready(function() {
         //console.log(json);
 
         $.each(json.faculty, function() {
-            x = "<div onclick = 'showFacInfo(this)'; ";
+            x = "<div class = 'people-card-div' onclick = 'showFacInfo(this)'; ";
             x += 'data-id = "' + $(this)[0].username + '" ';
             x += 'style = "cursor:pointer;"><h3>' + $(this)[0].name + '</h3>';
             x += '<p>' + $(this)[0].title + '</p>';
@@ -274,6 +406,92 @@ $(document).ready(function() {
             $('#people-section').append(x);
         });
     });
+
+    myXHR('get', {
+        'path': '/research/byInterestArea'
+    }).done(function(json) {
+        console.log(json);
+
+        $.each(json.byInterestArea, function(){
+            let x = '';
+            x += "<div class = 'research-card-div' onclick = 'showInterestResearch(this)'; ";
+            x += "areaname = '" + $(this)[0].areaName + "' ";
+            x += "style = 'cursor:pointer;'>";
+            x += "<h3>" + $(this)[0].areaName + "</h3>";
+            x += "</div><hr/>";
+
+            $('#research-section').append(x);
+        });
+    });
+
+    myXHR('get', {
+        'path': '/research/byFaculty'
+    }).done(function(json) {
+        console.log(json);
+
+        $.each(json.byFaculty, function(i, ele){
+            let x = '';
+            x += "<div class = 'research-card-fac-div' onclick = 'showFacResearch(this)'; ";
+            x += "username = '" + ele.username + "' ";
+            x += "style = 'cursor:pointer;'>";
+            x += "<img src='https://ist.rit.edu/assets/img/people/" + ele.username + ".jpg'/>"
+            x += "<h3>" + ele.facultyName + "</h3>";
+            x += "</div>";
+
+            $('#research-faculty-section').append(x);
+        });
+    });
+
+    myXHR('get', {
+        'path': '/resources'
+    }).done(function(json) {
+        console.log(json);
+
+        let x = '';
+        x += "<div class = 'resource-header'><h1>" + json.title + "</h1></div>";
+        x += "<div class = 'resource-header'><h1>Current Students</h1></div>";
+        x += "<div class = 'resource-cards'>";
+        x += "<div><h3>" + json.coopEnrollment.title + "</h3></div>";
+        x += "<div><h3>Forms</h2></div>";
+        x += "<div><h3>" + json.tutorsAndLabInformation.title + "</h3></div>";
+        x += "<div><h3>" + json.studyAbroad.title + "</h3></div>";
+        x += "<div><h3>" + json.studentServices.title + "</h3></div>";
+        x += "<div><h3>" + json.studentAmbassadors.title + "</h3></div>";
+        x += "</div>";
+
+        $('#current-resources-section').append(x);
+    });
+
+
+    myXHR('get', {
+        'path': '/footer'
+    }).done(function(json) {
+        console.log(json);
+
+        let x = '';
+        x += "<div class = 'footer-header'>";
+        x += "<div class = 'social-presence'><h1>" + json.social.title + "</h1>";
+        x += "<h3>" + json.social.tweet + "</h3>";
+        x += "<h4>" + json.social.by + "</h4>";
+        x += "<a href='" + json.social.twitter + "'><i class='fab fa-twitter-square'></i></a>";
+        x += "<ahref='" + json.social.facebook + "'><i class='fab fa-facebook-square'></i></a>";
+        x += "<div class = 'apply-div-footer'><a href='" + json.quickLinks[0].href + "'>Apply Now</a></div>";
+        x += "<div class = 'bottom-footer-wrapper'><div class = 'quicklinks-footer'>"
+        x += "<ul>";
+
+        $.each(json.quickLinks, function(i, ele){
+            x += "<li><a href='" + ele.href + "'>" + ele.title + "</a></li>";
+        });
+
+        x += "</ul></div>";
+        x += "<div class = 'copyright-footer'>" + json.copyright.html + "</div>";
+        x += "</div>";
+
+        $("#footer").append(x);
+    });
+
+
+
 }); // end of document ready
 
 
