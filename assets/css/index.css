@@ -1,4 +1,134 @@
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  padding: 0; }
+
+a {
+  text-decoration: none; }
+
+h1 {
+  font-size: 2rem; }
+
+.main-wrapper {
+  overflow: hidden; }
+  .main-wrapper .page-wrapper {
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    display: flex; }
+
+#about-section-wrapper {
+  background-color: #999999;
+  width: 75vw;
+  margin: auto; }
+  #about-section-wrapper #quote {
+    font-style: italic; }
+  #about-section-wrapper #quote-author {
+    text-align: center; }
+  #about-section-wrapper p {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-left: 5%;
+    padding-right: 5%; }
+  #about-section-wrapper h1 {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    text-align: center; }
+
 .people-choice {
   cursor: pointer; }
+
+.main-header {
+  height: 10%;
+  border-bottom: 2px solid orange;
+  color: #999999;
+  background-color: black; }
+  .main-header span {
+    font-size: 1.2rem; }
+  .main-header a {
+    text-decoration: none;
+    color: #999999; }
+
+.main-title {
+  height: 90%;
+  text-align: center; }
+  .main-title p {
+    display: inline-block; }
+  .main-title h1 {
+    font-size: 3rem;
+    padding-top: 20%;
+    padding-bottom: 20%; }
+
+#undergrad-deg-wrapper #undergrad-deg-header {
+  width: 50%;
+  margin: auto;
+  padding: 2%; }
+  #undergrad-deg-wrapper #undergrad-deg-header h1 {
+    text-align: center; }
+#undergrad-deg-wrapper .undergrad-deg {
+  box-sizing: border-box;
+  width: calc(100%/3);
+  display: inline-block;
+  padding: 5%;
+  cursor: pointer; }
+  #undergrad-deg-wrapper .undergrad-deg h2 {
+    text-align: center;
+    padding: 5px; }
+  #undergrad-deg-wrapper .undergrad-deg p {
+    padding: 5px;
+    text-align: center; }
+#undergrad-deg-wrapper .undergrad-deg:hover h2 {
+  animation-name: popout;
+  animation-duration: .5s; }
+@keyframes popout {
+  from {
+    transform: scale(1); }
+  to {
+    transform: scale(1.2); } }
+#grad-deg-wrapper #grad-deg-header {
+  width: 50%;
+  margin: auto;
+  padding: 2%; }
+  #grad-deg-wrapper #grad-deg-header h1 {
+    text-align: center; }
+#grad-deg-wrapper .grad-deg {
+  box-sizing: border-box;
+  width: calc(100%/3);
+  display: inline-block;
+  padding: 5%;
+  cursor: pointer; }
+  #grad-deg-wrapper .grad-deg h2 {
+    text-align: center;
+    padding: 5px; }
+  #grad-deg-wrapper .grad-deg p {
+    padding: 5px;
+    text-align: center; }
+#grad-deg-wrapper .grad-deg:hover h2 {
+  animation-name: popout;
+  animation-duration: .5s; }
+@keyframes popout {
+  from {
+    transform: scale(1); }
+  to {
+    transform: scale(1.2); } }
+#grad-deg-wrapper #grad-certs {
+  margin: auto;
+  text-align: center; }
+  #grad-deg-wrapper #grad-certs a {
+    color: black; }
+  #grad-deg-wrapper #grad-certs h2 {
+    padding: 2%; }
+  #grad-deg-wrapper #grad-certs div {
+    padding: 2%; }
+
+/*============================================================== DIALOG STYLES*/
+#concentration-list {
+  list-style-type: square;
+  font-style: italic;
+  font-weight: bold; }
+
+.ui-dialog-titlebar {
+  background-color: white; }
+
+/*===========================================================END DIALOG STYLES*/
 
 /*# sourceMappingURL=index.css.map */

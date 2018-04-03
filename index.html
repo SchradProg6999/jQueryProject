@@ -3,96 +3,157 @@
     <head>
         <meta charset="utf-8" />
         <title>JQuery Project</title>
-        <link rel="stylesheet" text="text/css" href="assets/css/index.css">
+        <link rel="stylesheet" href="assets/css/index.css">
+        <link rel="stylesheet" text="text/css" href="assets/css/tiltedpage-scroll.css">
+        <link rel="stylesheet" href="assets/css/magnific-popup.css">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="assets/js/jquery.tiltedpage-scroll.min.js"></script>
+        <script src="assets/js/jquery.magnific-popup.js"></script>
     </head>
     <body>
-        <h1>INFORMATION SCIENCES & TECHNOLOGIES @ RIT</h1>
-        <div id="about-section-wrapper">
-            <div id="about-header">
-                <h2>IST Dept Site</h2>
-            </div>
-            <section id="about-section"></section>
-        </div>
-        <hr>
-        <div id="undergrad-deg-wrapper">
-            <div id="undergrad-deg-header">
-                <h1>Our Undergraduate Degrees</h1>
-            </div>
-            <section id="undergraduate-degree-section"></section>
-        </div>
-        <hr>
-        <div id="grad-deg-wrapper">
-            <div id="grad-deg-header">
-                <h1>Our Graduate Degrees</h1>
-            </div>
-            <section id="graduate-degree-section"></section>
-        </div>
-        <hr>
-        <div id="minors-wrapper">
-            <div class="minors-header">
-                <h1>Our Undergraduate Minors</h1>
-            </div>
-            <section id="minors-section"></section>
-        </div>
-        <hr>
-        <div id="employment-section-wrapper">
-            <section id="employment-section"></section>
-        </div>
-        <hr>
-        <div id="map-section-wrapper">
-            <div id="map-header">
-                <h1>Where Our Students Work</h1>
-                <p class="footnote">Click a marker to learn more about the jobs at that location</>
-            </div>
-            <section id="map-section">
-                <iframe id="map" src="http://ist.rit.edu/api/map" scrolling="no" style="width:80vw; height:60vh;"></iframe>
-            </section>
-        </div>
-        <hr>
-        <div id="people-section-wrapper">
-            <div id="people-section-header"></div>
-            <section id="people-section"></section>
-        </div>
-        <hr>
-        <div id="research-section-wrapper">
-            <div>
-                <h1>Faculty Research: Areas of Interest</h1>
-                <p class="footnote">Click the area you're interested in to explore our faculty publications</p>
-            </div>
-            <section id="research-section"></section>
-        </div>
-        <hr>
-        <div id="research-faculty-section-wrapper">
-            <div>
-                <h1>Faculty Research: Lookup by Faculty</h1>
-                <p class = 'footnote'>Click the faculty member to explore their recent publications</p>
-            </div>
-            <section id='research-faculty-section'></section>
-        </div>
-        <hr>
-        <div id="resources-section-wrapper">
-            <section id="current-resources-section"></section>
-        </div>
-        <hr>
-        <div id="resources-section-wrapper">
-            <section id="prospective-resources-section"></section>
-        </div>
-        <hr>
-        <div id="resources-section-wrapper">
-            <section id="COP-resources-section"></section>
-        </div>
-        <hr>
-        <div id="footer-wrapper">
-            <section id="footer">
-                <div class="news-footer">
-                    <h1>News Archives</h1>
-                    <h3 onclick='showNews(this);' style='cursor:pointer'>All News</h3>
+        <div class="main-wrapper">
+            <div id="landing-div">
+                <div class='main-header'>
+                    <a href="https://www.rit.edu/"><h1>RIT <span id='main-header-span'>Rochester Insitute of Technology<span></h1></a>
                 </div>
-            </section>
+                <div class='main-title'>
+                    <h1>INFORMATION SCIENCES & TECHNOLOGIES @ RIT</h1>
+                    <p onmouseover="addBounce(this)">Check out more below!</p>
+                </div>
+            </div>
+
+
+            <div class="page-wrapper">
+                <div class="page" id="about-section-wrapper">
+                    <section id="about-section"></section>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="page-wrapper">
+                <div class='page' id="undergrad-deg-wrapper">
+                    <div id="undergrad-deg-header">
+                        <h1>Our Undergraduate Degrees</h1>
+                    </div>
+                    <section id="undergraduate-degree-section"></section>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="page-wrapper">
+                <div class='page' id="grad-deg-wrapper">
+                    <div id="grad-deg-header">
+                        <h1>Our Graduate Degrees</h1>
+                    </div>
+                    <section id="graduate-degree-section"></section>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="page-wrapper">
+                <div class='page' id="minors-wrapper">
+                    <div class="minors-header">
+                        <h1>Our Undergraduate Minors</h1>
+                    </div>
+                    <section id="minors-section"></section>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="page-wrapper">
+                <div class='page' id="employment-section-wrapper">
+                    <section id="employment-section"></section>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="page-wrapper">
+                <div class='page' id="map-section-wrapper">
+                    <div id="map-header">
+                        <h1>Where Our Students Work</h1>
+                        <p class="footnote">Click a marker to learn more about the jobs at that location</>
+                    </div>
+                    <section id="map-section">
+                        <iframe id="map" src="http://ist.rit.edu/api/map" scrolling="no" style="width:80vw; height:60vh;"></iframe>
+                    </section>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="page-wrapper">
+                <div class='page' id="people-section-wrapper">
+                    <div id="people-section-header"></div>
+                    <section id="people-section"></section>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="page-wrapper">
+                <div class='page' id="research-section-wrapper">
+                    <div>
+                        <h1>Faculty Research: Areas of Interest</h1>
+                        <p class="footnote">Click the area you're interested in to explore our faculty publications</p>
+                    </div>
+                    <section id="research-section"></section>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="page-wrapper">
+                <div class='page' id="research-faculty-section-wrapper">
+                    <div>
+                        <h1>Faculty Research: Lookup by Faculty</h1>
+                        <p class = 'footnote'>Click the faculty member to explore their recent publications</p>
+                    </div>
+                    <section id='research-faculty-section'></section>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="page-wrapper">
+                <div class='page' id="resources-section-wrapper">
+                    <section id="current-resources-section"></section>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="page-wrapper">
+                <div class='page' id="resources-section-wrapper">
+                    <section id="prospective-resources-section"></section>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="page-wrapper">
+                <div class='page' id="resources-section-wrapper">
+                    <section id="COP-resources-section"></section>
+                </div>
+            </div>
+
+            <hr>
+
+            <div id="footer-wrapper">
+                <section id="footer">
+                    <div class="news-footer">
+                        <h1>News Archives</h1>
+                        <h3 onclick='showNews(this);' style='cursor:pointer'>All News</h3>
+                    </div>
+                </section>
+            </div>
         </div>
 
         <script type="text/javascript" src="assets/js/index.js"></script>

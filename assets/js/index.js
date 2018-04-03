@@ -1,5 +1,62 @@
 //api:  http://www.ist.rit.edu/api/
 
+$(".main-wrapper").tiltedpage_scroll({
+    sectionContainer: ".page-wrapper",
+    angle: 20,
+    opacity: true,
+    scale: false,
+    outAnimation: true,
+});
+
+
+function addBounce(ele){
+        $(ele).effect("bounce", {times:3}, "slow");
+}
+
+
+function showDegInfo(degObj){
+    if($(degObj).attr('degree')){
+        var degree = $(degObj).attr('degree');
+        var uri = '/degrees/undergraduate/degreeName=' + degree;
+    }
+    else{
+        var degree = $(degObj).attr('data-id');
+        var uri = '/degrees/graduate/degreeName=' + degree;
+    }
+    var encodedURI = encodeURI(uri);
+    myXHR('get', {
+        'path':encodedURI
+    }).done(function(json) {
+        console.log(json);
+        $(".ui-dialog-content").dialog('close');
+        let popUp = '';
+        popUp += "<div><h1>" + json.title + "</h1>";
+        popUp += "<p class='footnote'></p>";
+        popUp += "<hr><ul id='concentration-list'>";
+
+        $.each(json.concentrations, function(i, ele){
+            popUp += "<li>" + ele + "</li>";
+        });
+        popUp += "</div>";
+
+        $(popUp).dialog({
+            autoOpen: true,
+            show: {
+                effect: "fade",
+                duration: 300
+            },
+            hide: {
+                effect: "fade",
+                duration: 300
+            },
+            draggable: false,
+            resizeable: false
+        });
+    });
+}
+
+
+
 function showNews(){
 
     myXHR('get', {
@@ -231,10 +288,10 @@ $(document).ready(function() {
         'path': '/about/'
     }).done(function(json) {
         //json = JSON.parse(json); 		// if we forget to return the dataType in myXHR
-        let x = '<h2>' + json.title + '</h2>';
+        let x = '<h1>' + json.title + '</h1>';
         x += '<p>' + json.description + '</p>';
-        x += '<p>' + json.quote + '</p>';
-        x += '<p>' + json.quoteAuthor + '</p>';
+        x += '<p id="quote">"' + json.quote + '"</p>';
+        x += '<p id="quote-author">~' + json.quoteAuthor + '</p>';
         $('#about-section').html(x);
     });
 
@@ -247,11 +304,8 @@ $(document).ready(function() {
         // have arrays to decode and display
         $.each(json.undergraduate, function(i, item) {
             let x = '';
-            x += "<div class=undergrad-deg id='undergrad-deg" + i + "'><h2>" + item.title + "</h2>";
+            x += "<div onclick='showDegInfo(this)' degree='" + item.degreeName + "' class=undergrad-deg id='undergrad-deg" + i + "'><h2>" + item.title + "</h2>";
             x += "<p>" + item.description + "</p></div>";
-            // $("#undergrad-deg2").on('click', function(){
-            //     console.log("Yay it worked");
-            // })
             $('#undergraduate-degree-section').append(x);
         });
     });
@@ -268,20 +322,19 @@ $(document).ready(function() {
         $.each(json.graduate, function(i, item) {
             if(i < json.graduate.length - 1){
                 let x = '';
-                x += "<div class=grad-deg id='grad-deg" + i + "'><h2>" + item.title + "</h2>";
+                x += "<div onclick='showDegInfo(this)' class='grad-deg' id='grad-deg" + i + "' data-id=" + item.degreeName + "><h2>" + item.title + "</h2>";
                 x += "<p>" + item.description + "</p></div>";
                 $('#graduate-degree-section').append(x);
             }
             else{
                 let x = '';
-                x += "<div class=grad-deg id='grad-deg" + i + "'><h2>" + item.degreeName + "</h2>";
-                x += "<div>" + item.availableCertificates[0] + "</div>";
-                x += "<div>" + item.availableCertificates[1] + "</div>";
+                x += "<div id='grad-certs'><h2>" + item.degreeName + "</h2>";
+                x += "<a href='http://www.rit.edu/programs/web-development-adv-cert' ><div>" + item.availableCertificates[0] + "</div></a>";
+                x += "<a href='http://www.rit.edu/programs/networking-planning-and-design-adv-cert'><div>" + item.availableCertificates[1] + "</div></a>";
                 $('#graduate-degree-section').append(x);
             }
         });
     });
-
 
     // DISPLAY MINOR PROGRAMS
     myXHR('get', {
