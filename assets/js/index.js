@@ -1,16 +1,43 @@
 //api:  http://www.ist.rit.edu/api/
 
-$(".main-wrapper").tiltedpage_scroll({
-    sectionContainer: ".page-wrapper",
-    angle: 20,
-    opacity: true,
-    scale: false,
-    outAnimation: true,
-});
+// $(".main-wrapper").tiltedpage_scroll({
+//     sectionContainer: ".page-wrapper",
+//     angle: 20,
+//     opacity: true,
+//     scale: false,
+//     outAnimation: true,
+// });
+
+
+function showCoopTable(ele){
+    $("#table-data-div").toggle();
+    $("#coop-table-data").toggle();
+}
+
+
+
+function showEmploymentTable(ele){
+    $("#table-data-div").toggle();
+    $("#employment-table-data").toggle();
+}
+
 
 
 function addBounce(ele){
         $(ele).effect("bounce", {times:3}, "slow");
+}
+
+
+function showMinor(minor){
+    var minorName = $(minor).attr('minor');
+    var uri = '/minors/UgMinors/name=' + minorName;
+    var encodedURI = encodeURI(uri);
+    myXHR('get', {
+        'path':encodedURI
+    }).done(function(json) {
+
+    });
+
 }
 
 
@@ -247,11 +274,11 @@ function showFaculty(){
         let x = '';
         $("#people-section").html(x);
         $.each(json.faculty, function() {
-            x = "<div class='people-card-div' onclick = 'showFacInfo(this)'; ";
+            x = "<div class='people-card-div col-sm-3' onclick = 'showFacInfo(this)'; ";
             x += 'data-id = "' + $(this)[0].username + '" ';
             x += 'style = "cursor:pointer;"><h3>' + $(this)[0].name + '</h3>';
             x += '<p>' + $(this)[0].title + '</p>';
-            x += '</div><hr/>';
+            x += '</div>';
 
             $('#people-section').append(x);
         });
@@ -268,11 +295,11 @@ function showStaff(){
         let x = '';
         $("#people-section").html(x);
         $.each(json.staff, function() {
-            x = "<div class='people-card-div' onclick = 'showStaffInfo(this)'; ";
+            x = "<div class='people-card-div col-sm-3' onclick = 'showStaffInfo(this)'; ";
             x += 'data-id = "' + $(this)[0].username + '" ';
             x += 'style = "cursor:pointer;"><h3>' + $(this)[0].name + '</h3>';
             x += '<p>' + $(this)[0].title + '</p>';
-            x += '</div><hr/>';
+            x += '</div>';
 
             $('#people-section').append(x);
         });
@@ -304,7 +331,7 @@ $(document).ready(function() {
         // have arrays to decode and display
         $.each(json.undergraduate, function(i, item) {
             let x = '';
-            x += "<div onclick='showDegInfo(this)' degree='" + item.degreeName + "' class=undergrad-deg id='undergrad-deg" + i + "'><h2>" + item.title + "</h2>";
+            x += "<div onclick='showDegInfo(this)' degree='" + item.degreeName + "' class='col-sm-4 undergrad-deg' id='undergrad-deg" + i + "'><h2>" + item.title + "</h2>";
             x += "<p>" + item.description + "</p></div>";
             $('#undergraduate-degree-section').append(x);
         });
@@ -322,13 +349,13 @@ $(document).ready(function() {
         $.each(json.graduate, function(i, item) {
             if(i < json.graduate.length - 1){
                 let x = '';
-                x += "<div onclick='showDegInfo(this)' class='grad-deg' id='grad-deg" + i + "' data-id=" + item.degreeName + "><h2>" + item.title + "</h2>";
+                x += "<div onclick='showDegInfo(this)' class='grad-deg col-sm-4' id='grad-deg" + i + "' data-id=" + item.degreeName + "><h2>" + item.title + "</h2>";
                 x += "<p>" + item.description + "</p></div>";
                 $('#graduate-degree-section').append(x);
             }
             else{
                 let x = '';
-                x += "<div id='grad-certs'><h2>" + item.degreeName + "</h2>";
+                x += "<div class='col-sm-12' id='grad-certs'><h2>Our Graduate Advanced Certificates</h2>";
                 x += "<a href='http://www.rit.edu/programs/web-development-adv-cert' ><div>" + item.availableCertificates[0] + "</div></a>";
                 x += "<a href='http://www.rit.edu/programs/networking-planning-and-design-adv-cert'><div>" + item.availableCertificates[1] + "</div></a>";
                 $('#graduate-degree-section').append(x);
@@ -344,7 +371,8 @@ $(document).ready(function() {
         console.log(json);
         $.each(json.UgMinors, function(i, item) {
             let x = '';
-            x += "<div class=ugMinor id='ugMinor" + i + "'><h3>" + item.title + "</h3></div>";
+            x += "<div onclick='showMinor(this)' class='ugMinor col-sm-3' id='ugMinor" + i + "' minor='" + item.name + "'>"
+            x += "<div class='title-wrapper'><h3>" + item.title + "</h3></div></div>";
             $('#minors-section').append(x);
         });
     });
@@ -357,53 +385,51 @@ $(document).ready(function() {
     }).done(function(json) {
         console.log(json);
         let x = '';
-        x += "<div id='employment-title'>";
-        x += "<h2>" + json.introduction.title + "</h2>";
+        x += "<div class='col-sm-12' id='employment-title'>";
+        x += "<h1>" + json.introduction.title + "</h1>";
         x += "</div>"
         $("#employment-section").append(x);
 
         x = '';
-        x += "<div class='employment-subheader-div'>";
+        x += "<div class='employment-subheader-div col-sm-12'>";
         x += "<h3 class='employment-subheader'>" + json.introduction.content[0].title + "</h3>";
         x += "<p>" + json.introduction.content[0].description + "</p>";
         $("#employment-section").append(x);
 
         x = '';
-        let count = 0;
-        $.each(json.degreeStatistics, function(i, item){
-            x += "<div class='deg-stat' id='deg-stat" + i + "'>";
-            x += "<p>" + json.degreeStatistics.statistics[count].value + "</p>";
-            x += "<p>" + json.degreeStatistics.statistics[count].description + "</p></div>";
-            count ++;
-            $("#employment-section").append(x);
+        $.each(json.degreeStatistics.statistics, function(i, item){
+            x += "<div class='deg-stat-wrapper col-sm-3'>";
+            x += "<div class='deg-stats'><h2>" + item.value + "</h2>";
+            x += "<p>" + item.description + "</p></div></div>";
         });
+        $("#employment-section").append(x);
 
 
         x = '';
-        x += "<div class='employment-subheader-div'>";
+        x += "<div class='employment-subheader-div col-sm-12'>";
         x += "<h3 class='employment-subheader'>" + json.introduction.content[1].title + "</h3>";
         x += "<p>" + json.introduction.content[1].description + "</p>";
         $("#employment-section").append(x);
 
         x = '';
-        x += "<div id='employers-list'>";
-        x += "<h3 class='employment-subheader'>" + json.employers.title + "</h3>";
+        x += "<div class='col-sm-12' id='employers-list'>";
+        x += "<h2 class='employment-subheader'>" + json.employers.title + "</h2>";
         for(var i = 0; i < json.employers.employerNames.length; i++){
-            x += "<h4>" + json.employers.employerNames[i] + "</h4>";
+            x += "<h3 class='col-sm-2'>" + json.employers.employerNames[i] + "</h3>";
         }
         x += "</div>"
-        $("#employment-section").append(x);
+        $("#employment-section-2").append(x);
 
 
         x = '';
-        x += "<div id='careers-list'>";
-        x += "<h3 class='employment-subheader'>" + json.careers.title + "</h3>";
+        x += "<div class='col-sm-12' id='careers-list'>";
+        x += "<h2 class='employment-subheader'>" + json.careers.title + "</h2>";
         for(var i = 0; i < json.careers.careerNames.length; i++){
-            x += "<h4>" + json.careers.careerNames[i] + "</h4>";
+            x += "<h3 class='col-sm-2'>" + json.careers.careerNames[i] + "</h3>";
         }
-        x += "<div class = 'footnote'><p>*Employers/Careers are randomly pulled from our recent graduates</p></div>";
+        x += "<div class='footnote col-sm-12'><p>*Employers/Careers are randomly pulled from our recent graduates</p></div>";
         x += "</div>"
-        $("#employment-section").append(x);
+        $("#employment-section-2").append(x);
     });
 
 
@@ -412,17 +438,46 @@ $(document).ready(function() {
     myXHR('get', {
         'path': '/employment/'
     }).done(function(json) {
+        console.log(json);
         let x = '';
-        x += "<div class='coop_employment_table'>";
+        x += "<div class='col-sm-12 col-centered'>"
+        x += "<div onclick='showCoopTable(this)' class='coop-employment-table col-sm-5' id='coopTable' name = 'coopTable'> ";
         x += "<h3>" + json.coopTable.title + "</h3>";
         x += "</div>";
-        $("#map-section").append(x);
-
-        x = '';
-        x += "<div class='coop_employment_table'>";
+        x += "<div onclick='showEmploymentTable(this)' class='coop-employment-table col-sm-5' id='employmentTable' name = 'employmentTable'>";
         x += "<h3>" + json.employmentTable.title + "</h3>";
-        x += "</div>";
-        $("#map-section").append(x);
+        x += "</div></div>";
+        $("#coop-table-section").append(x);
+    });
+
+
+    myXHR('get', {
+        'path': "/employment/employmentTable"
+    }).done(function(json) {
+        console.log(json);
+        let table = '';
+        table += "<tbody>";
+        $.each(json.employmentTable.professionalEmploymentInformation, function(){
+            table += "<tr><td>" + this.employer + "</td><td>" + this.degree + "</td><td>" + this.city + "</td><td>" + this.title + "</td><td>" + this.startDate + "</td></tr>";
+        });
+        table += "</tbody>";
+        let completeTable = $("#employment-table-data").append(table);
+
+        let createTable = $("#employment-table-data").DataTable();
+    });
+
+    myXHR('get', {
+        'path': "/employment/coopTable"
+    }).done(function(json) {
+        console.log(json);
+        let table = '';
+        table += "<tbody>";
+        $.each(json.coopTable.coopInformation, function(){
+            table += "<tr><td>" + this.employer + "</td><td>" + this.degree + "</td><td>" + this.city + "</td><td>" + this.term + "</td></tr>";
+        });
+        table += "</tbody>";
+        $("#coop-table-data").append(table);
+        $("#coop-table-data").DataTable();
     });
 
 
@@ -433,11 +488,18 @@ $(document).ready(function() {
         let x = '';
         x += "<div id='people-header'><h1>" + json.title + "</h1>";
         x += "<p>" + json.subTitle + "</p>";
-        x += "<div onclick='showFaculty()' class='people-choice'><h3>Faculty</h3></div>";
-        x += "<div onclick='showStaff()' class='people-choice'><h3>Staff</h3></div>";
+        x += "<div onclick='showFaculty()' class='people-choice'><h1>Faculty</h1></div>";
+        x += "<div onclick='showStaff()' class='people-choice'><h1>Staff</h1></div>";
         x += "</div>";
 
         $('#people-section-header').append(x);
+
+        $(".people-choice").mouseover(function(){
+            $(this).animate({zoom:1.1}, 200, "easeInSine");
+        });
+        $(".people-choice").mouseout(function(){
+            $(this).animate({zoom:1.0}, 200, "easeOutSine");
+        });
     });
 
 
@@ -450,11 +512,11 @@ $(document).ready(function() {
         //console.log(json);
 
         $.each(json.faculty, function() {
-            x = "<div class = 'people-card-div' onclick = 'showFacInfo(this)'; ";
+            x = "<div class = 'people-card-div col-sm-3' onclick = 'showFacInfo(this)'; ";
             x += 'data-id = "' + $(this)[0].username + '" ';
             x += 'style = "cursor:pointer;"><h3>' + $(this)[0].name + '</h3>';
             x += '<p>' + $(this)[0].title + '</p>';
-            x += '</div><hr/>';
+            x += '</div>';
 
             $('#people-section').append(x);
         });
