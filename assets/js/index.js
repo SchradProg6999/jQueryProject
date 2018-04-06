@@ -275,12 +275,19 @@ function showFaculty(){
         $("#people-section").html(x);
         $.each(json.faculty, function() {
             x = "<div class='people-card-div col-sm-3' onclick = 'showFacInfo(this)'; ";
-            x += 'data-id = "' + $(this)[0].username + '" ';
-            x += 'style = "cursor:pointer;"><h3>' + $(this)[0].name + '</h3>';
-            x += '<p>' + $(this)[0].title + '</p>';
-            x += '</div>';
+            x += "data-id = '" + $(this)[0].username + "'";
+            x += "style = 'cursor:pointer;'><div class='card-info'><h3>" + $(this)[0].name + "</h3>";
+            x += "<p>" + $(this)[0].title + "</p>";
+            x += "</div></div>";
 
             $('#people-section').append(x);
+        });
+
+        $(".card-info").mouseenter(function(){
+            $(this).css("color", "#eb6124");
+        });
+        $(".card-info").mouseleave(function(){
+            $(this).css("color", "#f8f8f8");
         });
     });
 }
@@ -296,12 +303,19 @@ function showStaff(){
         $("#people-section").html(x);
         $.each(json.staff, function() {
             x = "<div class='people-card-div col-sm-3' onclick = 'showStaffInfo(this)'; ";
-            x += 'data-id = "' + $(this)[0].username + '" ';
-            x += 'style = "cursor:pointer;"><h3>' + $(this)[0].name + '</h3>';
-            x += '<p>' + $(this)[0].title + '</p>';
-            x += '</div>';
+            x += "data-id = '" + $(this)[0].username + "'";
+            x += "style = 'cursor:pointer;'><div class='card-info'><h3>" + $(this)[0].name + "</h3>";
+            x += "<p>" + $(this)[0].title + "</p>";
+            x += "</div></div>";
 
             $('#people-section').append(x);
+        });
+
+        $(".card-info").mouseenter(function(){
+            $(this).css("color", "#eb6124");
+        });
+        $(".card-info").mouseleave(function(){
+            $(this).css("color", "#f8f8f8");
         });
     });
 }
@@ -441,11 +455,11 @@ $(document).ready(function() {
         console.log(json);
         let x = '';
         x += "<div class='col-sm-12 col-centered'>"
-        x += "<div onclick='showCoopTable(this)' class='coop-employment-table col-sm-5' id='coopTable' name = 'coopTable'> ";
-        x += "<h3>" + json.coopTable.title + "</h3>";
+        x += "<div onclick='showCoopTable(this)' class='coop-employment-table col-sm-6' id='coopTable' name = 'coopTable'>";
+        x += "<div class='coop-title'><h3>" + json.coopTable.title + "</h3></div>";
         x += "</div>";
-        x += "<div onclick='showEmploymentTable(this)' class='coop-employment-table col-sm-5' id='employmentTable' name = 'employmentTable'>";
-        x += "<h3>" + json.employmentTable.title + "</h3>";
+        x += "<div onclick='showEmploymentTable(this)' class='coop-employment-table col-sm-6' id='employmentTable' name = 'employmentTable'>";
+        x += "<div class='coop-title'><h3>" + json.employmentTable.title + "</h3></div>";
         x += "</div></div>";
         $("#coop-table-section").append(x);
     });
@@ -494,10 +508,10 @@ $(document).ready(function() {
 
         $('#people-section-header').append(x);
 
-        $(".people-choice").mouseover(function(){
+        $(".people-choice").mouseenter(function(){
             $(this).animate({zoom:1.1}, 200, "easeInSine");
         });
-        $(".people-choice").mouseout(function(){
+        $(".people-choice").mouseleave(function(){
             $(this).animate({zoom:1.0}, 200, "easeOutSine");
         });
     });
@@ -513,12 +527,18 @@ $(document).ready(function() {
 
         $.each(json.faculty, function() {
             x = "<div class = 'people-card-div col-sm-3' onclick = 'showFacInfo(this)'; ";
-            x += 'data-id = "' + $(this)[0].username + '" ';
-            x += 'style = "cursor:pointer;"><h3>' + $(this)[0].name + '</h3>';
-            x += '<p>' + $(this)[0].title + '</p>';
-            x += '</div>';
-
+            x += "data-id = '" + $(this)[0].username + "'";
+            x += "style = 'cursor:pointer;'><div class='card-info'><h3>" + $(this)[0].name + "</h3>";
+            x += "<p>" + $(this)[0].title + "</p>";
+            x += "</div></div>";
             $('#people-section').append(x);
+        });
+
+        $(".card-info").mouseenter(function(){
+            $(this).css("color", "#eb6124");
+        });
+        $(".card-info").mouseleave(function(){
+            $(this).css("color", "#f8f8f8");
         });
     });
 
@@ -532,8 +552,8 @@ $(document).ready(function() {
             x += "<div class = 'research-card-div' onclick = 'showInterestResearch(this)'; ";
             x += "areaname = '" + $(this)[0].areaName + "' ";
             x += "style = 'cursor:pointer;'>";
-            x += "<h3>" + $(this)[0].areaName + "</h3>";
-            x += "</div><hr/>";
+            x += "<div class='research-circle-wrapper col-sm-2'><div class='research-circle'><h4>" + $(this)[0].areaName + "</h4></div>";
+            x += "</div></div>";
 
             $('#research-section').append(x);
         });
@@ -545,15 +565,23 @@ $(document).ready(function() {
         console.log(json);
 
         $.each(json.byFaculty, function(i, ele){
+            let id = ele.username.replace(/\s+/g, '');
             let x = '';
-            x += "<div class = 'research-card-fac-div' onclick = 'showFacResearch(this)'; ";
+            x += "<div class = 'research-card-fac-div col-sm-3' onclick = 'showFacResearch(this)'; ";
             x += "username = '" + ele.username + "' ";
             x += "style = 'cursor:pointer;'>";
-            x += "<img src='https://ist.rit.edu/assets/img/people/" + ele.username + ".jpg'/>"
-            x += "<h3>" + ele.facultyName + "</h3>";
-            x += "</div>";
+            x += "<div class='research-card-fac' id=" + id + "><img src='https://ist.rit.edu/assets/img/people/" + ele.username + ".jpg' style='width: 195px; height: 200px;'/>"
+            x += "<div class='fac-rec-name'><h5>" + ele.facultyName + "</h5></div>";
+            x += "</div></div>";
 
             $('#research-faculty-section').append(x);
+        });
+
+        $(".research-card-fac").mouseenter(function(ele){
+            $("#" + $(this)[0].id + " .fac-rec-name").fadeIn("slow");
+        });
+        $(".research-card-fac").mouseleave(function(ele){
+            $("#" + $(this)[0].id + " .fac-rec-name").fadeOut("slow");
         });
     });
 

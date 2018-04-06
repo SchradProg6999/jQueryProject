@@ -32,7 +32,12 @@ p {
   font-size: 1.5rem; }
 
 a {
-  text-decoration: none; }
+  text-decoration: none;
+  color: #f8f8f8; }
+
+a:hover {
+  text-decoration: none;
+  color: #f8f8f8; }
 
 hr {
   box-shadow: 0px 1px 7px 9px #ffffff6b;
@@ -58,8 +63,12 @@ table {
     height: 100%;
     border-radius: 2px; }
 
+#scroll-pointsy-woincy {
+  padding-top: 5%; }
+
 #about-section-wrapper {
-  margin: auto; }
+  margin: auto;
+  padding: 5%; }
   #about-section-wrapper #quote {
     font-style: italic; }
   #about-section-wrapper #quote-author {
@@ -82,7 +91,7 @@ table {
 
 .main-header {
   height: 10%;
-  border-bottom: 2px solid orange;
+  border-bottom: 2px solid #eb6124;
   color: #999999;
   background-color: black; }
   .main-header span {
@@ -103,6 +112,8 @@ table {
     #landing-div .main-title p {
       width: 20%;
       margin: auto; }
+    #landing-div .main-title span {
+      color: #eb6124; }
 
 #undergrad-deg-wrapper #undergrad-deg-header {
   text-align: center; }
@@ -195,24 +206,10 @@ table {
     background: linear-gradient(#3961e5, #0d104d);
     border-radius: 2px;
     text-align: center; }
-#employment-section-wrapper #employers-list {
-  padding: 2%; }
-  #employment-section-wrapper #employers-list h4 {
-    display: inline-block;
-    text-align: center;
-    padding-left: 1%;
-    padding-right: 1%; }
-#employment-section-wrapper #careers-list {
-  padding: 2%; }
 
 #employment-section-wrapper-2 #employers-list {
   padding: 2%;
   text-align: center; }
-  #employment-section-wrapper-2 #employers-list h4 {
-    display: inline-block;
-    text-align: center;
-    padding-left: 1%;
-    padding-right: 1%; }
 #employment-section-wrapper-2 #careers-list {
   padding: 2%;
   text-align: center; }
@@ -242,11 +239,15 @@ table {
       height: 60vh; }
 
 #coop-table-section .coop-employment-table {
-  padding: 7%;
-  margin: 3%;
   text-align: center;
-  display: inline-block;
-  background: linear-gradient(#3961e5, #0d104d); }
+  padding-top: 5%;
+  padding-bottom: 5%; }
+  #coop-table-section .coop-employment-table .coop-title {
+    display: inline-block;
+    background: linear-gradient(#3961e5, #0d104d);
+    height: 25vh;
+    width: 80%;
+    padding: 7%; }
 
 #people-section-wrapper #people-header {
   text-align: center; }
@@ -260,7 +261,50 @@ table {
   padding: 1%;
   margin: 1%; }
 #people-section-wrapper .people-card-div {
-  display: inline-block; }
+  padding: 0;
+  text-align: center;
+  margin-bottom: 1%; }
+#people-section-wrapper .card-info {
+  display: inline-block;
+  text-align: center;
+  border: 1px solid #f8f8f8;
+  width: 20vw;
+  height: 10vh;
+  padding: 5%; }
+
+#research-section-wrapper .research-header {
+  text-align: center;
+  padding: 2% 5%; }
+#research-section-wrapper .research-circle {
+  text-align: center;
+  margin: auto;
+  padding: 10%;
+  padding-top: 20%;
+  margin-top: 20%;
+  margin-bottom: 20%;
+  background: linear-gradient(#3961e5, #0d104d);
+  height: 10vh; }
+
+#research-faculty-section-wrapper .research-faculty-header {
+  text-align: center;
+  padding: 2% 5%; }
+#research-faculty-section-wrapper .research-card-fac-div {
+  text-align: center;
+  padding: 0; }
+#research-faculty-section-wrapper .research-card-fac {
+  position: relative;
+  margin: auto;
+  padding: 5%; }
+  #research-faculty-section-wrapper .research-card-fac .fac-rec-name {
+    display: none;
+    position: absolute;
+    max-width: 100px;
+    left: 50px;
+    bottom: 15px;
+    color: #fff;
+    background: linear-gradient(#3961e5, #0d104d);
+    white-space: normal;
+    padding: 2%; }
 
 /*============================================================== DIALOG STYLES*/
 #concentration-list {

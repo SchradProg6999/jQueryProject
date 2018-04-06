@@ -5,6 +5,8 @@ $rit-orange: #eb6124;
 $ghost-white: #f8f8f8;
 $accent1: #3961e5;
 $accent2: #0d104d;
+$tiger-orange: #eb6124;
+
 // font variables
 $font-size-tiny: 1rem;
 $font-size-sm: 1.2rem;
@@ -56,7 +58,14 @@ p{
 
 a{
     text-decoration: none;
+    color: $ghost-white;
 }
+
+a:hover{
+    text-decoration: none;
+    color: $ghost-white;
+}
+
 
 hr{
     box-shadow: 0px 1px 7px 9px #ffffff6b;
@@ -88,8 +97,13 @@ table{
     }
 }
 
+#scroll-pointsy-woincy{
+    padding-top: 5%;
+}
+
 #about-section-wrapper{
     margin: auto;
+    padding: 5%;
     #quote{
         font-style: italic;
     }
@@ -118,7 +132,7 @@ table{
 
 .main-header{
     height: 10%;
-    border-bottom: 2px solid orange;
+    border-bottom: 2px solid $tiger-orange;
     color: $mellow-grey;
     background-color: black;
     span{
@@ -143,6 +157,9 @@ table{
         p{
             width: 20%;
             margin: auto;
+        }
+        span{
+            color: $tiger-orange;
         }
     }
 }
@@ -273,30 +290,12 @@ table{
             text-align: center;
         }
     }
-    #employers-list{
-        padding: 2%;
-        h4{
-            display: inline-block;
-            text-align: center;
-            padding-left: 1%;
-            padding-right: 1%;
-        }
-    }
-    #careers-list{
-        padding: 2%;
-    }
 }
 
 #employment-section-wrapper-2{
     #employers-list{
         padding: 2%;
         text-align: center;
-        h4{
-            display: inline-block;
-            text-align: center;
-            padding-left: 1%;
-            padding-right: 1%;
-        }
     }
     #careers-list{
         padding: 2%;
@@ -338,11 +337,16 @@ table{
 
 #coop-table-section{
     .coop-employment-table{
-        padding: 7%;
-        margin: 3%;
         text-align: center;
-        display: inline-block;
-        background: linear-gradient($accent1, $accent2);
+        padding-top: 5%;
+        padding-bottom: 5%;
+        .coop-title{
+            display: inline-block;
+            background: linear-gradient($accent1, $accent2);
+            height: 25vh;
+            width: 80%;
+            padding: 7%;
+        }
     }
 }
 
@@ -363,7 +367,63 @@ table{
         margin: 1%;
     }
     .people-card-div{
+        padding: 0;
+        text-align: center;
+        margin-bottom: 1%;
+    }
+    .card-info{
         display: inline-block;
+        text-align: center;
+        border: 1px solid $ghost-white;
+        width: 20vw;
+        height: 10vh;
+        padding: 5%;
+    }
+}
+
+#research-section-wrapper{
+    .research-header{
+        text-align: center;
+        padding: 2% 5%;
+    }
+    .research-circle-wrapper{
+    }
+    .research-circle{
+        text-align: center;
+        margin: auto;
+        padding: 10%;
+        padding-top: 20%;
+        margin-top: 20%;
+        margin-bottom: 20%;
+        background: linear-gradient($accent1, $accent2);
+        height: 10vh;
+    }
+}
+
+#research-faculty-section-wrapper{
+    .research-faculty-header{
+        text-align: center;
+        padding: 2% 5%;
+    }
+    .research-card-fac-div{
+        text-align: center;
+        padding: 0;
+    }
+    .research-card-fac{
+        position: relative;
+        margin: auto;
+        padding: 5%;
+        .fac-rec-name{
+            display: none;
+            position: absolute;
+            max-width: 100px;
+            left: 50px;
+            bottom: 15px;
+            color: #fff;
+            background: linear-gradient($accent1, $accent2);;
+            white-space: normal;
+            padding: 2%;
+        }
     }
 }
 
