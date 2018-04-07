@@ -63,7 +63,11 @@ a{
 
 a:hover{
     text-decoration: none;
-    color: $ghost-white;
+    color: $tiger-orange;
+}
+
+li:hover{
+    color: $tiger-orange;
 }
 
 
@@ -211,16 +215,16 @@ table{
             text-align: center;
         }
     }
-    .undergrad-deg:hover{
-        h2{
-            animation-name: popout;
-            animation-duration: .5s;
-        }
-        @keyframes popout{
-            from{transform: scale(1.0);}
-            to{transform: scale(1.2);}
-        }
-    }
+    // .undergrad-deg:hover{
+    //     h2{
+    //         animation-name: popout;
+    //         animation-duration: .5s;
+    //     }
+    //     @keyframes popout{
+    //         from{transform: scale(1.0);}
+    //         to{transform: scale(1.2);}
+    //     }
+    // }
 }
 
 #grad-deg-wrapper{
@@ -242,16 +246,16 @@ table{
             text-align: center;
         }
     }
-    .grad-deg:hover{
-        h2{
-            animation-name: popout;
-            animation-duration: .5s;
-        }
-        @keyframes popout{
-            from{transform: scale(1.0);}
-            to{transform: scale(1.2);}
-        }
-    }
+    // .grad-deg:hover{
+    //     h2{
+    //         animation-name: popout;
+    //         animation-duration: .5s;
+    //     }
+    //     @keyframes popout{
+    //         from{transform: scale(1.0);}
+    //         to{transform: scale(1.2);}
+    //     }
+    // }
     #grad-certs{
         margin: auto;
         text-align: center;
@@ -472,20 +476,46 @@ table{
     }
 }
 
-
-
-
-
-/*============================================================== DIALOG STYLES*/
-
-#concentration-list{
-    list-style-type: square;
-    font-style: italic;
-    font-weight: bold;
+#footer-wrapper{
+    #footer{
+        background: #000000;
+        text-align: center;
+    }
+    .social-presence{
+        text-align: center;
+        h1{
+            padding: 5%;
+        }
+        h3, h4{
+            padding: 2%;
+        }
+        a{
+            font-size: 50px;
+            padding: 1%;
+        }
+    }
+    .apply-div-footer{
+        margin-top: 25px;
+        margin-bottom: 25px;
+        background: $tiger-orange;
+        padding: 0;
+        a{
+            display: block;
+            border: 1px solid $ghost-white;
+            padding: 1%;
+        }
+        a:hover{
+            color: $ghost-white;
+        }
+    }
+    .quicklinks-footer{
+        ul{
+            list-style-type: none;
+        }
+    }
+    .news-footer{
+        h3:hover{
+            color: $tiger-orange;
+        }
+    }
 }
-
-.ui-dialog-titlebar{
-    background-color: white;
-}
-
-/*===========================================================END DIALOG STYLES*/

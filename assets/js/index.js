@@ -13,7 +13,6 @@ function showCoopEnrollment(ele){
     myXHR('get', {
         'path': "/resources/coopEnrollment"
     }).done(function(json) {
-        console.log(json);
         let popup = "";
         popup += "<div><div class='enrollment-header'><h1>" + json.coopEnrollment.title + "</h1></div>";
 
@@ -132,7 +131,6 @@ function showStudentAmbassador(ele){
     myXHR('get', {
         'path': "/resources/studentAmbassadors"
     }).done(function(json) {
-        console.log(json);
         let popup = "";
         popup += "<div><div><h1>" + json.studentAmbassadors.title + "</h1></div><hr><div><img src='" + json.studentAmbassadors.ambassadorsImageSource + "'/></div><hr>";
 
@@ -212,8 +210,6 @@ function showDegInfo(degObj){
     myXHR('get', {
         'path':encodedURI
     }).done(function(json) {
-        console.log(json);
-        $(".ui-dialog-content").dialog('close');
         let popup = '';
         popup += "<div><h1>" + json.title + "</h1>";
         popup += "<p class='footnote'></p>";
@@ -237,7 +233,6 @@ function showNews(){
     myXHR('get', {
         'path': '/news'
     }).done(function(json){
-        $(".ui-dialog-content").dialog('close');
         let x = '';
         x += "<div><h1>News and Events: Archive</h1>"
         $.each(json.older, function(i, ele){
@@ -264,8 +259,6 @@ function showFacResearch(facultyResearch){
     myXHR('get', {
         'path':encodedURI
     }).done(function(json) {
-        $(".ui-dialog-content").dialog('close');
-        console.log(json);
 
         let popup = '';
         popup += "<div><h1>" + json.facultyName + "</h1>";
@@ -318,7 +311,6 @@ function showFacInfo(who) {
     myXHR('get', {
         'path': '/people/faculty/username=' + id
     }).done(function(json) {
-        console.log(json);
         $(".ui-dialog-content").dialog('close');
         let popup = '';
         popup += "<div class='people-popup-header'><p><span>" + json.name + ", </span>" + json.title + "</p>";
@@ -346,7 +338,6 @@ function showStaffInfo(who) {
     myXHR('get', {
         'path': '/people/staff/username=' + id
     }).done(function(json) {
-        console.log(json);
         $(".ui-dialog-content").dialog('close');
         let popup = '';
         popup += "<div class='people-popup-header'><p><span>" + json.name + ", </span>" + json.title + "</p>";
@@ -424,7 +415,7 @@ function showStaff(){
 }
 
 
-
+//====================================================DOCUMENT READY STARTS HERE
 $(document).ready(function() {
 
     // ABOUT PAGE
@@ -443,7 +434,6 @@ $(document).ready(function() {
     myXHR('get', {
         'path': '/degrees/undergraduate/'
     }).done(function(json) {
-        console.log(json);
 
         // have arrays to decode and display
         $.each(json.undergraduate, function(i, item) {
@@ -451,6 +441,13 @@ $(document).ready(function() {
             x += "<div onclick='showDegInfo(this)' degree='" + item.degreeName + "' class='col-sm-4 undergrad-deg' id='undergrad-deg" + i + "'><h2>" + item.title + "</h2>";
             x += "<p>" + item.description + "</p></div>";
             $('#undergraduate-degree-section').append(x);
+        });
+
+        $(".undergrad-deg").on("mouseenter", function(ele){
+            $("#" + $(this)[0].id + " h2").animate({zoom:1.2}, 200, "easeInSine");
+        });
+        $(".undergrad-deg").on("mouseleave", function(){
+            $("#" + $(this)[0].id + " h2").animate({zoom:1.0}, 200, "easeInSine");
         });
     });
 
@@ -460,7 +457,6 @@ $(document).ready(function() {
     myXHR('get', {
         'path': '/degrees/graduate/'
     }).done(function(json) {
-        console.log(json);
 
         // have arrays to decode and display
         $.each(json.graduate, function(i, item) {
@@ -478,6 +474,13 @@ $(document).ready(function() {
                 $('#graduate-degree-section').append(x);
             }
         });
+
+        $(".grad-deg").on("mouseenter", function(ele){
+            $("#" + $(this)[0].id + " h2").animate({zoom:1.2}, 200, "easeInSine");
+        });
+        $(".grad-deg").on("mouseleave", function(){
+            $("#" + $(this)[0].id + " h2").animate({zoom:1.0}, 200, "easeInSine");
+        });
     });
 
     // DISPLAY MINOR PROGRAMS
@@ -485,12 +488,18 @@ $(document).ready(function() {
         'path': '/minors/'
         //'path': '/course/courseID=CSEC-101' THIS CAN BE USED FOR A SPECIFIC COURSE
     }).done(function(json) {
-        console.log(json);
         $.each(json.UgMinors, function(i, item) {
             let x = '';
             x += "<div onclick='showMinor(this)' class='ugMinor col-sm-3' id='ugMinor" + i + "' minor='" + item.name + "'>"
             x += "<div class='title-wrapper'><h3>" + item.title + "</h3></div></div>";
             $('#minors-section').append(x);
+        });
+
+        $(".title-wrapper").on("mouseenter", function(ele){
+            $($(this)[0]).animate({zoom:1.2}, 200, "easeInSine");
+        });
+        $(".title-wrapper").on("mouseleave", function(){
+            $($(this)[0]).animate({zoom:1.0}, 200, "easeInSine");
         });
     });
 
@@ -500,7 +509,6 @@ $(document).ready(function() {
     myXHR('get', {
         'path': '/employment/'
     }).done(function(json) {
-        console.log(json);
         let x = '';
         x += "<div class='col-sm-12' id='employment-title'>";
         x += "<h1>" + json.introduction.title + "</h1>";
@@ -555,7 +563,7 @@ $(document).ready(function() {
     myXHR('get', {
         'path': '/employment/'
     }).done(function(json) {
-        console.log(json);
+
         let x = '';
         x += "<div class='col-sm-12 col-centered'>"
         x += "<div onclick='showCoopTable(this)' class='coop-employment-table col-sm-6' id='coopTable' name = 'coopTable'>";
@@ -571,7 +579,7 @@ $(document).ready(function() {
     myXHR('get', {
         'path': "/employment/employmentTable"
     }).done(function(json) {
-        console.log(json);
+
         let table = '';
         table += "<tbody>";
         $.each(json.employmentTable.professionalEmploymentInformation, function(){
@@ -586,7 +594,7 @@ $(document).ready(function() {
     myXHR('get', {
         'path': "/employment/coopTable"
     }).done(function(json) {
-        console.log(json);
+
         let table = '';
         table += "<tbody>";
         $.each(json.coopTable.coopInformation, function(){
@@ -626,7 +634,6 @@ $(document).ready(function() {
         'path': '/people/faculty'
     }).done(function(json) {
         let x = '';
-        //console.log(json);
 
         $.each(json.faculty, function() {
             x = "<div class = 'people-card-div col-sm-3' onclick = 'showFacInfo(this)'; ";
@@ -648,7 +655,6 @@ $(document).ready(function() {
     myXHR('get', {
         'path': '/research/byInterestArea'
     }).done(function(json) {
-        console.log(json);
 
         $.each(json.byInterestArea, function(){
             let x = '';
@@ -665,7 +671,6 @@ $(document).ready(function() {
     myXHR('get', {
         'path': '/research/byFaculty'
     }).done(function(json) {
-        console.log(json);
 
         $.each(json.byFaculty, function(i, ele){
             let id = ele.username.replace(/\s+/g, '');
@@ -691,7 +696,6 @@ $(document).ready(function() {
     myXHR('get', {
         'path': '/resources'
     }).done(function(json) {
-        console.log(json);
 
         let x = '';
         x += "<div class = 'resource-header'><h1>" + json.title + "</h1><p>Click on any of the links for a quick access to our resources.</p></div>";
@@ -712,7 +716,6 @@ $(document).ready(function() {
     myXHR('get', {
         'path': '/footer'
     }).done(function(json) {
-        console.log(json);
 
         let x = '';
         x += "<div class = 'footer-header'>";
@@ -720,9 +723,9 @@ $(document).ready(function() {
         x += "<h3>" + json.social.tweet + "</h3>";
         x += "<h4>" + json.social.by + "</h4>";
         x += "<a href='" + json.social.twitter + "'><i class='fab fa-twitter-square'></i></a>";
-        x += "<ahref='" + json.social.facebook + "'><i class='fab fa-facebook-square'></i></a>";
+        x += "<a href='" + json.social.facebook + "'><i class='fab fa-facebook-square'></i></a></div>";
         x += "<div class = 'apply-div-footer'><a href='" + json.quickLinks[0].href + "'>Apply Now</a></div>";
-        x += "<div class = 'bottom-footer-wrapper'><div class = 'quicklinks-footer'>"
+        x += "<div class = 'bottom-footer-wrapper'><div class = 'quicklinks-footer col-sm-4'>"
         x += "<ul>";
 
         $.each(json.quickLinks, function(i, ele){
@@ -730,10 +733,10 @@ $(document).ready(function() {
         });
 
         x += "</ul></div>";
-        x += "<div class = 'copyright-footer'>" + json.copyright.html + "</div>";
+        x += "<div class = 'copyright-footer col-sm-4'>" + json.copyright.html + "</div>";
         x += "</div>";
 
-        $("#footer").append(x);
+        $("#footer").prepend(x);
     });
 
 

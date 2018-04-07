@@ -37,7 +37,10 @@ a {
 
 a:hover {
   text-decoration: none;
-  color: #f8f8f8; }
+  color: #eb6124; }
+
+li:hover {
+  color: #eb6124; }
 
 hr {
   box-shadow: 0px 1px 7px 9px #ffffff6b;
@@ -151,14 +154,7 @@ table {
   #undergrad-deg-wrapper .undergrad-deg p {
     padding: 5px;
     text-align: center; }
-#undergrad-deg-wrapper .undergrad-deg:hover h2 {
-  animation-name: popout;
-  animation-duration: .5s; }
-@keyframes popout {
-  from {
-    transform: scale(1); }
-  to {
-    transform: scale(1.2); } }
+
 #grad-deg-wrapper h1 {
   text-align: center;
   padding: 2% 5%; }
@@ -173,14 +169,6 @@ table {
   #grad-deg-wrapper .grad-deg p {
     padding: 5px;
     text-align: center; }
-#grad-deg-wrapper .grad-deg:hover h2 {
-  animation-name: popout;
-  animation-duration: .5s; }
-@keyframes popout {
-  from {
-    transform: scale(1); }
-  to {
-    transform: scale(1.2); } }
 #grad-deg-wrapper #grad-certs {
   margin: auto;
   text-align: center; }
@@ -339,15 +327,32 @@ table {
       #current-resources-section .resource-card-wrapper .resource-cards h3 {
         padding: 10%; }
 
-/*============================================================== DIALOG STYLES*/
-#concentration-list {
-  list-style-type: square;
-  font-style: italic;
-  font-weight: bold; }
-
-.ui-dialog-titlebar {
-  background-color: white; }
-
-/*===========================================================END DIALOG STYLES*/
+#footer-wrapper #footer {
+  background: #000000;
+  text-align: center; }
+#footer-wrapper .social-presence {
+  text-align: center; }
+  #footer-wrapper .social-presence h1 {
+    padding: 5%; }
+  #footer-wrapper .social-presence h3, #footer-wrapper .social-presence h4 {
+    padding: 2%; }
+  #footer-wrapper .social-presence a {
+    font-size: 50px;
+    padding: 1%; }
+#footer-wrapper .apply-div-footer {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  background: #eb6124;
+  padding: 0; }
+  #footer-wrapper .apply-div-footer a {
+    display: block;
+    border: 1px solid #f8f8f8;
+    padding: 1%; }
+  #footer-wrapper .apply-div-footer a:hover {
+    color: #f8f8f8; }
+#footer-wrapper .quicklinks-footer ul {
+  list-style-type: none; }
+#footer-wrapper .news-footer h3:hover {
+  color: #eb6124; }
 
 /*# sourceMappingURL=index.css.map */
