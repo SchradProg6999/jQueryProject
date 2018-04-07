@@ -1,12 +1,156 @@
 //api:  http://www.ist.rit.edu/api/
 
-// $(".main-wrapper").tiltedpage_scroll({
-//     sectionContainer: ".page-wrapper",
-//     angle: 20,
-//     opacity: true,
-//     scale: false,
-//     outAnimation: true,
-// });
+$(".main-wrapper").tiltedpage_scroll({
+    sectionContainer: ".page-wrapper",
+    angle: 20,
+    opacity: true,
+    scale: true,
+    outAnimation: false,
+});
+
+
+function showCoopEnrollment(ele){
+    myXHR('get', {
+        'path': "/resources/coopEnrollment"
+    }).done(function(json) {
+        console.log(json);
+        let popup = "";
+        popup += "<div><div class='enrollment-header'><h1>" + json.coopEnrollment.title + "</h1></div>";
+
+        $.each(json.coopEnrollment.enrollmentInformationContent, function(i, ele){
+            popup += "<div><h3>" + ele.title + "</h3>";
+            popup += "<p>" + ele.description + "</p><hr>";
+        });
+
+        popup += "<a href='" + json.coopEnrollment.RITJobZoneGuidelink + "'>Please refer to our <span style='color: orange'>Coop-Guide!</span></a></div>";
+
+        $.fancybox.open({
+            src: popup,
+            type : 'html'
+        });
+    });
+}
+
+function showForms(ele){
+    myXHR('get', {
+        'path': "/resources/forms"
+    }).done(function(json) {
+        let popup = "";
+        popup += "<div><div class='forms-header'><h2>Forms</h2></div>";
+        popup += "<h1>Undergraduate</h1><ul>";
+
+        $.each(json.forms.undergraduateForms, function(i, ele){
+            popup += "<li><a href='" + ele.href + "'>" + ele.formName + "</a></li>";
+        });
+        popup += "</ul>";
+        popup += "<div><h1>Graduate</h1></div><ul>";
+
+        $.each(json.forms.graduateForms, function(i, ele){
+            popup += "<li><a href='" + ele.href + "'>" + ele.formName + "</a></li>";
+        });
+        popup += "</ul></div>";
+
+        $.fancybox.open({
+            src: popup,
+            type : 'html'
+        });
+    });
+}
+
+function showTutors(ele){
+    myXHR('get', {
+        'path': "/resources/tutorsAndLabInformation"
+    }).done(function(json) {
+        let popup = "";
+        popup += "<div><div><h1>" + json.tutorsAndLabInformation.title + "</h1></div>";
+        popup += "<p>" + json.tutorsAndLabInformation.description + "</p>";
+        popup += "<a href=" + json.tutorsAndLabInformation.tutoringLabHoursLink + ">Lab Hours and TA Schedule</a></div>";
+        $.fancybox.open({
+            src: popup,
+            type : 'html'
+        });
+    });
+}
+
+
+function showStudyAbroad(ele){
+    myXHR('get', {
+        'path': "/resources/studyAbroad"
+    }).done(function(json) {
+        let popup = "";
+        popup += "<div><div class='study-abroad-header'><h1>" + json.studyAbroad.title + "</h1></div>";
+        popup += "<p>" + json.studyAbroad.description + "</p>";
+
+        $.each(json.studyAbroad.places, function(i, ele){
+            popup += "<hr><div><h2>" + ele.nameOfPlace + "</h2>"
+            popup += "<p>" + ele.description + "</p></div>";
+        });
+
+        popup += "</div>";
+        $.fancybox.open({
+            src: popup,
+            type : 'html'
+        });
+    });
+}
+
+
+function showAdvising(ele){
+    myXHR('get', {
+        'path': "/resources/studentServices"
+    }).done(function(json) {
+        let popup = "";
+        popup += "<div><div><h1>Student Advising Services</h1></div>";
+        popup += "<div><h3>" + json.studentServices.academicAdvisors.title + "</h3><p>" + json.studentServices.academicAdvisors.description + "</p></div><hr>";
+        popup += "<div><h3>" + json.studentServices.professonalAdvisors.title + "</h3></div><hr>";
+
+        $.each(json.studentServices.professonalAdvisors.advisorInformation, function(i, ele){
+            popup += "<div><h4>" + ele.name + "</h4>";
+            popup += "<h5>" + ele.email + "</h5>";
+            popup += "<h5>" + ele.department + "</h5>";
+            popup += "</div><hr>";
+        });
+
+        popup += "<div><h4>" + json.studentServices.facultyAdvisors.title + "</h4><p>" + json.studentServices.facultyAdvisors.description + "</p></div><hr>";
+        popup += "<div><h4>" + json.studentServices.istMinorAdvising.title + "</h4>";
+
+        $.each(json.studentServices.istMinorAdvising.minorAdvisorInformation, function(i, ele){
+            popup += "<div><h5>" + ele.title + "</h5>";
+            popup += "<p>" + ele.advisor + "</p><p>" + ele.email + "</p>";
+            popup += "</div><hr>";
+        });
+        popup += "</div>";
+
+        $.fancybox.open({
+            src: popup,
+            type : 'html'
+        });
+    });
+}
+
+function showStudentAmbassador(ele){
+    myXHR('get', {
+        'path': "/resources/studentAmbassadors"
+    }).done(function(json) {
+        console.log(json);
+        let popup = "";
+        popup += "<div><div><h1>" + json.studentAmbassadors.title + "</h1></div><hr><div><img src='" + json.studentAmbassadors.ambassadorsImageSource + "'/></div><hr>";
+
+        $.each(json.studentAmbassadors.subSectionContent, function(i, ele){
+            popup += "<div>";
+            popup += "<h3>" + ele.title + "</h3>";
+            popup += "<p>" + ele.description + "</p>";
+            popup += "</div><hr>";
+        });
+        popup += "<a href='" + json.studentAmbassadors.applicationFormLink + "'><h3>Apply Now!</h3></a>";
+        popup += "</div>";
+
+        $.fancybox.open({
+            src: popup,
+            type : 'html'
+        });
+    });
+}
 
 
 function showCoopTable(ele){
@@ -35,7 +179,21 @@ function showMinor(minor){
     myXHR('get', {
         'path':encodedURI
     }).done(function(json) {
+        let popup = '';
+        popup += "<div><div class='minor-header'><h1>" + json.title + "</h1>";
+        popup += "<p>" + json.description + "</p></div>";
+        popup += "<h1 class='minor-courses-header'>Courses</h1><ul>";
+        $.each(json.courses, function(i, ele){
+            popup += "<li>" + ele + "</li>"
+        });
+        popup += "</ul><p>" + json.note + "</p>";
 
+        popup += "</div>";
+
+        $.fancybox.open({
+            src: popup,
+            type : 'html'
+        });
     });
 
 }
@@ -56,28 +214,18 @@ function showDegInfo(degObj){
     }).done(function(json) {
         console.log(json);
         $(".ui-dialog-content").dialog('close');
-        let popUp = '';
-        popUp += "<div><h1>" + json.title + "</h1>";
-        popUp += "<p class='footnote'></p>";
-        popUp += "<hr><ul id='concentration-list'>";
+        let popup = '';
+        popup += "<div><h1>" + json.title + "</h1>";
+        popup += "<p class='footnote'></p>";
+        popup += "<hr><ul id='concentration-list'>";
 
         $.each(json.concentrations, function(i, ele){
-            popUp += "<li>" + ele + "</li>";
+            popup += "<li>" + ele + "</li>";
         });
-        popUp += "</div>";
-
-        $(popUp).dialog({
-            autoOpen: true,
-            show: {
-                effect: "fade",
-                duration: 300
-            },
-            hide: {
-                effect: "fade",
-                duration: 300
-            },
-            draggable: false,
-            resizeable: false
+        popup += "</ul></div>";
+        $.fancybox.open({
+            src: popup,
+            type : 'html'
         });
     });
 }
@@ -100,18 +248,9 @@ function showNews(){
         });
 
         x += "</div>";
-        $(x).dialog({
-            autoOpen: true,
-            show: {
-                effect: "fade",
-                duration: 300
-            },
-            hide: {
-                effect: "fade",
-                duration: 300
-            },
-            draggable: false,
-            resizeable: false
+        $.fancybox.open({
+            src: x,
+            type : 'html'
         });
     });
 }
@@ -128,27 +267,18 @@ function showFacResearch(facultyResearch){
         $(".ui-dialog-content").dialog('close');
         console.log(json);
 
-        let popUp = '';
-        popUp += "<div><h1>" + json.facultyName + "</h1>";
-        popUp += "<div><ul>";
+        let popup = '';
+        popup += "<div><h1>" + json.facultyName + "</h1>";
+        popup += "<div><ul>";
 
         $.each(json.citations, function(i, ele){
-            popUp += "<li>" + ele +"</li>";
+            popup += "<li>" + ele +"</li>";
         });
 
-        popUp += "</ul></div></div>";
-        $(popUp).dialog({
-            autoOpen: true,
-            show: {
-                effect: "fade",
-                duration: 300
-            },
-            hide: {
-                effect: "fade",
-                duration: 300
-            },
-            draggable: false,
-            resizeable: false
+        popup += "</ul></div></div>";
+        $.fancybox.open({
+            src: popup,
+            type : 'html'
         });
     });
 }
@@ -163,28 +293,19 @@ function showInterestResearch(researchTopic){
         'path': encodedURI
     }).done(function(json) {
         $(".ui-dialog-content").dialog('close');
-        let popUp = '';
-        popUp += "<div><div class='research-popup-header'><h1>Research By Domain Area: " + researchID + "</h1></div>";
-        popUp += "<div><ul>";
+        let popup = '';
+        popup += "<div><div class='research-popup-header'><h1>Research By Domain Area: " + researchID + "</h1></div>";
+        popup += "<div><ul>";
 
         $.each(json.citations, function(i, ele){
-            popUp += "<li>" + ele + "</li>";
+            popup += "<li>" + ele + "</li>";
         });
 
-        popUp += "</ul></div>";
-        popUp += "</div>";
-        $(popUp).dialog({
-            autoOpen: true,
-            show: {
-                effect: "fade",
-                duration: 300
-            },
-            hide: {
-                effect: "fade",
-                duration: 300
-            },
-            draggable: false,
-            resizeable: false
+        popup += "</ul></div>";
+        popup += "</div>";
+        $.fancybox.open({
+            src: popup,
+            type : 'html'
         });
     });
 }
@@ -199,28 +320,19 @@ function showFacInfo(who) {
     }).done(function(json) {
         console.log(json);
         $(".ui-dialog-content").dialog('close');
-        let popUp = '';
-        popUp += "<div class='people-popup-header'><p><span>" + json.name + ", </span>" + json.title + "</p>";
-        popUp += "<div class='people-popup-image'><img src='" + json.imagePath + "'/></div>";
+        let popup = '';
+        popup += "<div class='people-popup-header'><p><span>" + json.name + ", </span>" + json.title + "</p>";
+        popup += "<div class='people-popup-image'><img src='" + json.imagePath + "'/></div>";
 
         if(json.office != null){
-            popUp += "<div class='people-popup-contact'><p>" + json.office + "</p>";
+            popup += "<div class='people-popup-contact'><p>" + json.office + "</p>";
         }
-        popUp += "<p>" + json.phone + "</p>";
-        popUp += "<p>" + json.email + "</p></div>";
+        popup += "<p>" + json.phone + "</p>";
+        popup += "<p>" + json.email + "</p></div>";
 
-        $(popUp).dialog({
-            autoOpen: true,
-            show: {
-                effect: "fade",
-                duration: 300
-            },
-            hide: {
-                effect: "fade",
-                duration: 300
-            },
-            draggable: false,
-            resizeable: false
+        $.fancybox.open({
+            src: popup,
+            type : 'html'
         });
     });
 
@@ -236,29 +348,20 @@ function showStaffInfo(who) {
     }).done(function(json) {
         console.log(json);
         $(".ui-dialog-content").dialog('close');
-        let popUp = '';
-        popUp += "<div class='people-popup-header'><p><span>" + json.name + ", </span>" + json.title + "</p>";
-        popUp += "<div class='people-popup-image'><img src='" + json.imagePath + "'/></div>";
+        let popup = '';
+        popup += "<div class='people-popup-header'><p><span>" + json.name + ", </span>" + json.title + "</p>";
+        popup += "<div class='people-popup-image'><img src='" + json.imagePath + "'/></div>";
 
         if(json.office != null){
-            popUp += "<div class='people-popup-contact'><p>" + json.office + "</p>";
+            popup += "<div class='people-popup-contact'><p>" + json.office + "</p>";
         }
         if(json.phone != null){
-            popUp += "<p>" + json.phone + "</p>";
+            popup += "<p>" + json.phone + "</p>";
         }
-        popUp += "<p>" + json.email + "</p></div>";
-        $(popUp).dialog({
-            autoOpen: true,
-            show: {
-                effect: "fade",
-                duration: 300
-            },
-            hide: {
-                effect: "fade",
-                duration: 300
-            },
-            draggable: false,
-            resizeable: false
+        popup += "<p>" + json.email + "</p></div>";
+        $.fancybox.open({
+            src: popup,
+            type : 'html'
         });
     });
 
@@ -552,7 +655,7 @@ $(document).ready(function() {
             x += "<div class = 'research-card-div' onclick = 'showInterestResearch(this)'; ";
             x += "areaname = '" + $(this)[0].areaName + "' ";
             x += "style = 'cursor:pointer;'>";
-            x += "<div class='research-circle-wrapper col-sm-2'><div class='research-circle'><h4>" + $(this)[0].areaName + "</h4></div>";
+            x += "<div class='research-circle-wrapper col-sm-3'><div class='research-circle'><h4>" + $(this)[0].areaName + "</h4></div>";
             x += "</div></div>";
 
             $('#research-section').append(x);
@@ -578,10 +681,10 @@ $(document).ready(function() {
         });
 
         $(".research-card-fac").mouseenter(function(ele){
-            $("#" + $(this)[0].id + " .fac-rec-name").fadeIn("slow");
+            $("#" + $(this)[0].id + " .fac-rec-name").fadeIn(300);
         });
         $(".research-card-fac").mouseleave(function(ele){
-            $("#" + $(this)[0].id + " .fac-rec-name").fadeOut("slow");
+            $("#" + $(this)[0].id + " .fac-rec-name").fadeOut(300);
         });
     });
 
@@ -591,15 +694,15 @@ $(document).ready(function() {
         console.log(json);
 
         let x = '';
-        x += "<div class = 'resource-header'><h1>" + json.title + "</h1></div>";
-        x += "<div class = 'resource-header'><h1>Current Students</h1></div>";
-        x += "<div class = 'resource-cards'>";
-        x += "<div><h3>" + json.coopEnrollment.title + "</h3></div>";
-        x += "<div><h3>Forms</h2></div>";
-        x += "<div><h3>" + json.tutorsAndLabInformation.title + "</h3></div>";
-        x += "<div><h3>" + json.studyAbroad.title + "</h3></div>";
-        x += "<div><h3>" + json.studentServices.title + "</h3></div>";
-        x += "<div><h3>" + json.studentAmbassadors.title + "</h3></div>";
+        x += "<div class = 'resource-header'><h1>" + json.title + "</h1><p>Click on any of the links for a quick access to our resources.</p></div>";
+        x += "<div class = 'resource-header' id='cur-student-header'><h2>Current Students</h2></div>";
+        x += "<div class = 'col-sm-12'>";
+        x += "<div onclick='showCoopEnrollment(this)' class='resource-card-wrapper col-sm-4'><div class='resource-cards'><h3>" + json.coopEnrollment.title + "</h3></div></div>";
+        x += "<div onclick='showForms(this)' class='resource-card-wrapper col-sm-4'><div class='resource-cards'><h3>Forms</h3></div></div>";
+        x += "<div onclick='showTutors(this)' class='resource-card-wrapper col-sm-4'><div class='resource-cards'><h3>" + json.tutorsAndLabInformation.title + "</h3></div></div>";
+        x += "<div onclick='showStudyAbroad(this)' class='resource-card-wrapper col-sm-4'><div class='resource-cards'><h3>" + json.studyAbroad.title + "</h3></div></div>";
+        x += "<div onclick='showAdvising(this)' class='resource-card-wrapper col-sm-4'><div class='resource-cards'><h3>Student Advising Services</h3></div></div>";
+        x += "<div onclick='showStudentAmbassador(this)' class='resource-card-wrapper col-sm-4'><div class='resource-cards'><h3>" + json.studentAmbassadors.title + "</h3></div></div>";
         x += "</div>";
 
         $('#current-resources-section').append(x);
