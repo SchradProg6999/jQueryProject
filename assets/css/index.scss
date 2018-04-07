@@ -159,7 +159,9 @@ table{
 }
 
 .main-header{
-    height: 10%;
+    position: fixed;
+    height: 63px;
+    z-index: 500;
     border-bottom: 2px solid $tiger-orange;
     color: $mellow-grey;
     background-color: black;
@@ -178,9 +180,8 @@ table{
         height: 90%;
         text-align: center;
         h1{
-            font-size: 6rem;
-            padding-top: 20%;
-            padding-bottom: 20%;
+            font-size: 7rem;
+            padding: 20% 10%;
         }
         p{
             width: 20%;
@@ -259,6 +260,7 @@ table{
     #grad-certs{
         margin: auto;
         text-align: center;
+        padding-bottom: 3%;
         a{
             color: $ghost-white;
         }
@@ -518,4 +520,35 @@ table{
             color: $tiger-orange;
         }
     }
+}
+
+#menu{
+    display: none;
+    position: absolute;
+    top: 63px;
+    z-index: 1000;
+    a{
+        width: 100%;
+        display: inline-block;
+    }
+}
+
+.ui-menu-item{
+    width: 150px;
+}
+
+#ham{
+    display: none;
+}
+
+#ham + #menu{
+    display: none;
+}
+
+#ham:checked + #menu{
+    display: block;
+}
+
+#ham-lbl{
+    cursor: pointer;
 }

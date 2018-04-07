@@ -1,5 +1,6 @@
 //api:  http://www.ist.rit.edu/api/
 
+// JQuery Plugin Configuration for the tilted of the different sections
 $(".main-wrapper").tiltedpage_scroll({
     sectionContainer: ".page-wrapper",
     angle: 20,
@@ -8,7 +9,8 @@ $(".main-wrapper").tiltedpage_scroll({
     outAnimation: false,
 });
 
-
+// this function performs an ajax call to format and display information
+// from the api into lightbox in the student resources section
 function showCoopEnrollment(ele){
     myXHR('get', {
         'path': "/resources/coopEnrollment"
@@ -30,6 +32,8 @@ function showCoopEnrollment(ele){
     });
 }
 
+// this function performs an ajax call to format and display information
+// from the api into lightbox in the student resources section
 function showForms(ele){
     myXHR('get', {
         'path': "/resources/forms"
@@ -56,6 +60,9 @@ function showForms(ele){
     });
 }
 
+
+// this function performs an ajax call to format and display information
+// from the api into lightbox in the student resources section
 function showTutors(ele){
     myXHR('get', {
         'path': "/resources/tutorsAndLabInformation"
@@ -71,7 +78,8 @@ function showTutors(ele){
     });
 }
 
-
+// this function performs an ajax call to format and display information
+// from the api into lightbox in the student resources section
 function showStudyAbroad(ele){
     myXHR('get', {
         'path': "/resources/studyAbroad"
@@ -94,6 +102,8 @@ function showStudyAbroad(ele){
 }
 
 
+// this function performs an ajax call to format and display information
+// from the api into lightbox in the student resources section
 function showAdvising(ele){
     myXHR('get', {
         'path': "/resources/studentServices"
@@ -127,6 +137,9 @@ function showAdvising(ele){
     });
 }
 
+
+// this function performs an ajax call to format and display information
+// from the api into lightbox in the student resources section
 function showStudentAmbassador(ele){
     myXHR('get', {
         'path': "/resources/studentAmbassadors"
@@ -151,25 +164,29 @@ function showStudentAmbassador(ele){
 }
 
 
+
+// toggles the datatable that is being displayed
 function showCoopTable(ele){
     $("#table-data-div").toggle();
     $("#coop-table-data").toggle();
 }
 
 
-
+// toggles the datatable that is being displayed
 function showEmploymentTable(ele){
     $("#table-data-div").toggle();
     $("#employment-table-data").toggle();
 }
 
 
-
+// adds a nice bouncy effect on whatever element is passed in
 function addBounce(ele){
         $(ele).effect("bounce", {times:3}, "slow");
 }
 
 
+// makes ajax call to api and displays and formats the data that is returned
+// into a lightbox for the minors section
 function showMinor(minor){
     var minorName = $(minor).attr('minor');
     var uri = '/minors/UgMinors/name=' + minorName;
@@ -197,6 +214,8 @@ function showMinor(minor){
 }
 
 
+// makes ajax call to api and displays and formats the data that is returned
+// into a lightbox for both the undergraduate and graduate degree section
 function showDegInfo(degObj){
     if($(degObj).attr('degree')){
         var degree = $(degObj).attr('degree');
@@ -227,7 +246,8 @@ function showDegInfo(degObj){
 }
 
 
-
+// makes ajax call to api and displays and formats the data that is returned
+// into a lightbox for the news link
 function showNews(){
 
     myXHR('get', {
@@ -251,6 +271,8 @@ function showNews(){
 }
 
 
+// makes ajax call to api and displays and formats the data that is returned
+// into a lightbox for the Lookup By Faculty Research section
 function showFacResearch(facultyResearch){
 
     var facResearchID = $(facultyResearch).attr('username');
@@ -277,7 +299,8 @@ function showFacResearch(facultyResearch){
 }
 
 
-
+// makes ajax call to api and displays and formats the data that is returned
+// into a lightbox for the Areas of Interest section
 function showInterestResearch(researchTopic){
     var researchID = $(researchTopic).attr('areaname');
     var uri = '/research/byInterestArea/areaName=' + researchID;
@@ -304,7 +327,8 @@ function showInterestResearch(researchTopic){
 }
 
 
-
+// makes ajax call to api and displays and formats the data that is returned
+// into a lightbox for when a faculty member's name is clicked in the people section
 function showFacInfo(who) {
     // get the data-id to get more information
     var id = $(who).attr('data-id');
@@ -332,6 +356,9 @@ function showFacInfo(who) {
 
 
 
+
+// makes ajax call to api and displays and formats the data that is returned
+// into a lightbox for when a staff member's name is clicked in the people section
 function showStaffInfo(who) {
     // get the data-id to get more information
     var id = $(who).attr('data-id');
@@ -360,6 +387,7 @@ function showStaffInfo(who) {
 
 
 
+// makes ajax call to api and displays the cards for all the faculty members
 function showFaculty(){
     // display the faculty
     myXHR('get', {
@@ -387,7 +415,7 @@ function showFaculty(){
 }
 
 
-
+// makes ajax call to api and displays the cards for all the faculty members
 function showStaff(){
     //display the staff
     myXHR('get', {
@@ -414,11 +442,13 @@ function showStaff(){
     });
 }
 
-
+// all of the immediate information to display on the webpage goes inside here
 //====================================================DOCUMENT READY STARTS HERE
 $(document).ready(function() {
 
-    // ABOUT PAGE
+    $( "#menu" ).menu(); //function for jQuery's menu
+
+    // DISPLAY AND FORMAT ABOUT PAGE
     myXHR('get', {
         'path': '/about/'
     }).done(function(json) {
@@ -430,7 +460,7 @@ $(document).ready(function() {
         $('#about-section').html(x);
     });
 
-    // DISPLAY UNDERGRADUATE PROGRAMS
+    // DISPLAY AND FORMAT UNDERGRADUATE PROGRAMS
     myXHR('get', {
         'path': '/degrees/undergraduate/'
     }).done(function(json) {
@@ -453,7 +483,7 @@ $(document).ready(function() {
 
 
 
-    // DISPLAY GRADUATE PROGRAMS
+    // DISPLAY AND FORMAT GRADUATE PROGRAMS
     myXHR('get', {
         'path': '/degrees/graduate/'
     }).done(function(json) {
@@ -483,7 +513,7 @@ $(document).ready(function() {
         });
     });
 
-    // DISPLAY MINOR PROGRAMS
+    // DISPLAY AND FORMAT MINOR PROGRAMS
     myXHR('get', {
         'path': '/minors/'
         //'path': '/course/courseID=CSEC-101' THIS CAN BE USED FOR A SPECIFIC COURSE
@@ -496,16 +526,17 @@ $(document).ready(function() {
         });
 
         $(".title-wrapper").on("mouseenter", function(ele){
-            $($(this)[0]).animate({zoom:1.2}, 200, "easeInSine");
+            $($(this)[0]).css("transition", "transform .4s");
+            $($(this)[0]).css("transform", "scale(1.1)");
         });
         $(".title-wrapper").on("mouseleave", function(){
-            $($(this)[0]).animate({zoom:1.0}, 200, "easeInSine");
+            $($(this)[0]).css("transform", "scale(1.0)");
         });
     });
 
 
 
-    // DISPLAY EMPLOYMENT INFORMATION
+    // DISPLAY AND FORMAT EMPLOYMENT INFORMATION
     myXHR('get', {
         'path': '/employment/'
     }).done(function(json) {
@@ -573,9 +604,17 @@ $(document).ready(function() {
         x += "<div class='coop-title'><h3>" + json.employmentTable.title + "</h3></div>";
         x += "</div></div>";
         $("#coop-table-section").append(x);
+
+        $(".coop-employment-table").on("mouseenter", function(ele){
+            $($(this)[0]).css("transition", "transform .4s");
+            $($(this)[0]).css("transform", "scale(1.1)");
+        });
+        $(".coop-employment-table").on("mouseleave", function(){
+            $($(this)[0]).css("transform", "scale(1.0)");
+        });
     });
 
-
+    // Uses jQuery API DataTables to create a nicely formated table from data recieved from API
     myXHR('get', {
         'path': "/employment/employmentTable"
     }).done(function(json) {
@@ -591,6 +630,7 @@ $(document).ready(function() {
         let createTable = $("#employment-table-data").DataTable();
     });
 
+    // Uses jQuery API DataTables to create a nicely formated table from data recieved from API
     myXHR('get', {
         'path': "/employment/coopTable"
     }).done(function(json) {
@@ -606,7 +646,8 @@ $(document).ready(function() {
     });
 
 
-    // FACULTY AND STAFF HEADER
+    // Displays FACULTY AND STAFF HEADER
+    // animates when hovered
     myXHR('get', {
         'path': '/people/'
     }).done(function(json) {
@@ -629,7 +670,7 @@ $(document).ready(function() {
 
 
 
-    // DISPLAY THE FACULTY
+    // DISPLAY AND FORMAT THE FACULTY
     myXHR('get', {
         'path': '/people/faculty'
     }).done(function(json) {
@@ -652,6 +693,7 @@ $(document).ready(function() {
         });
     });
 
+    //DISPLAY AND FORMAT AREAS OF INTEREST SECTION
     myXHR('get', {
         'path': '/research/byInterestArea'
     }).done(function(json) {
@@ -666,8 +708,18 @@ $(document).ready(function() {
 
             $('#research-section').append(x);
         });
+
+        $(".research-circle").on("mouseenter", function(){
+            $($(this)[0]).css("transition", "transform .4s");
+            $($(this)[0]).css("transform", "scale(1.1)");
+        });
+        $(".research-circle").on("mouseleave", function(){
+            $($(this)[0]).css("transform", "scale(1.0)");
+        });
     });
 
+
+    // DISPLAY AND FORMAT RESEARCH BY FACULTY SECTION
     myXHR('get', {
         'path': '/research/byFaculty'
     }).done(function(json) {
@@ -693,6 +745,8 @@ $(document).ready(function() {
         });
     });
 
+
+    // DISPLAY AND FORMATS RESOURCES SECTION
     myXHR('get', {
         'path': '/resources'
     }).done(function(json) {
@@ -710,9 +764,17 @@ $(document).ready(function() {
         x += "</div>";
 
         $('#current-resources-section').append(x);
+
+        $(".resource-cards").on("mouseenter", function(){
+            $($(this)[0]).css("transition", "transform .4s");
+            $($(this)[0]).css("transform", "scale(1.1)");
+        });
+        $(".resource-cards").on("mouseleave", function(){
+            $($(this)[0]).css("transform", "scale(1.0)");
+        });
     });
 
-
+    // DISPLAYS AND FORMATS FOOTER SECTION
     myXHR('get', {
         'path': '/footer'
     }).done(function(json) {
@@ -736,6 +798,7 @@ $(document).ready(function() {
         x += "<div class = 'copyright-footer col-sm-4'>" + json.copyright.html + "</div>";
         x += "</div>";
 
+        // puts information grabbed from API before the news section in html
         $("#footer").prepend(x);
     });
 

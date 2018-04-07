@@ -112,7 +112,9 @@ table {
   cursor: pointer; }
 
 .main-header {
-  height: 10%;
+  position: fixed;
+  height: 63px;
+  z-index: 500;
   border-bottom: 2px solid #eb6124;
   color: #999999;
   background-color: black; }
@@ -128,9 +130,8 @@ table {
     height: 90%;
     text-align: center; }
     #landing-div .main-title h1 {
-      font-size: 6rem;
-      padding-top: 20%;
-      padding-bottom: 20%; }
+      font-size: 7rem;
+      padding: 20% 10%; }
     #landing-div .main-title p {
       width: 20%;
       margin: auto; }
@@ -171,7 +172,8 @@ table {
     text-align: center; }
 #grad-deg-wrapper #grad-certs {
   margin: auto;
-  text-align: center; }
+  text-align: center;
+  padding-bottom: 3%; }
   #grad-deg-wrapper #grad-certs a {
     color: #f8f8f8; }
   #grad-deg-wrapper #grad-certs h2 {
@@ -354,5 +356,29 @@ table {
   list-style-type: none; }
 #footer-wrapper .news-footer h3:hover {
   color: #eb6124; }
+
+#menu {
+  display: none;
+  position: absolute;
+  top: 63px;
+  z-index: 1000; }
+  #menu a {
+    width: 100%;
+    display: inline-block; }
+
+.ui-menu-item {
+  width: 150px; }
+
+#ham {
+  display: none; }
+
+#ham + #menu {
+  display: none; }
+
+#ham:checked + #menu {
+  display: block; }
+
+#ham-lbl {
+  cursor: pointer; }
 
 /*# sourceMappingURL=index.css.map */
